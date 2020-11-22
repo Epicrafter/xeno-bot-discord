@@ -77,35 +77,53 @@ client.on('ready', s => {
         .catch(console.error);
 });
 
-client.on('guildMemberAdd', (member) => {
+client.on("guildMemberAdd", (member) => {
 
-    let chx = db.get(`welchannel_${member.guild.id}`);
+    let OnOff = db.get(`welcome_${member.guild.id}`);
 
-    if(chx === null) {
-        return
+    if(OnOff == 'on') {
+
+        let welcomechannel =  db.get(`welchannel_${member.guild.id}`);
+        let welcomemsg = db.get(`welcomemsg_${member.guild.id}`);
+
+        let wcustommsg = welcomemsg.replace(/-/, `<@${member.id}>`);
+
+        let embed1 = new MessageEmbed()
+        .setColor("#2980b9")
+        .setDescription(wcustommsg);
+
+        client.channels.cache.get(welcomechannel).send(embed1);
+
+    } else {
+        
+        return;
+
     }
-
-    let embed = new MessageEmbed()
-    .setColor("#2980b9")
-    .setDescription(`**${member.user.tag}** joined the server`)
-
-    client.channels.cache.get(chx).send(embed)
 
 })
 
-client.on('guildMemberRemove', (member) => {
+client.on("guildMemberRemove", (member) => {
 
-    let chx = db.get(`welchannel_${member.guild.id}`);
+    let OnOff = db.get(`goodbye_${member.guild.id}`);
 
-    if(chx === null) {
-        return
+    if(OnOff == 'on') {
+
+        let goodbyechannel = db.get(`goodchannel_${member.guild.id}`);
+        let goodbyemsg = db.get(`goodbyemsg_${member.guild.id}`);
+
+        let gcustommsg = goodbyemsg.replace(/-/, `<@${member.id}>`)
+
+        let embed2 = new MessageEmbed()
+        .setColor("#c0392b")
+        .setDescription(gcustommsg)
+
+        client.channels.cache.get(goodbyechannel).send(embed2)
+    
+    } else {
+
+        return;
+
     }
-
-    let embed = new MessageEmbed()
-    .setColor("#c0392b")
-    .setDescription(`**${member.user.tag}** left the server`)
-
-    client.channels.cache.get(chx).send(embed)
 
 })
 
