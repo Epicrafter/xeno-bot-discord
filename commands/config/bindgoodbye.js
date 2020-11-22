@@ -26,7 +26,7 @@ module.exports = {
         } else {
 
             db.set(`goodchannel_${message.guild.id}`, channel);
-            message.channel.send(`Goodbye channel set to <#${channel}>`);
+            message.channel.send(`Goodbye channel set to ${channel}e`);
 
         }
 

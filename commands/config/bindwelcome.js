@@ -26,7 +26,7 @@ module.exports = {
         } else {
         
             db.set(`welchannel_${message.guild.id}`, channel)
-            message.channel.send(`Welcome Channel is set to <#${channel}>`);
+            message.channel.send(`Welcome Channel is set to ${channel}`);
 
         }
 
