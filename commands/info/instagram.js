@@ -1,10 +1,9 @@
-const { Message, MessageEmbed } = require('discord.js');
-const indentString = require('indent-string');
+const {  MessageEmbed } = require('discord.js');
 const fetch = require("node-fetch");
 
 module.exports = {
     name: "instagram",
-    category: "fun",
+    category: "info",
     description: "Returns some information about a Instagram profile",
     usage: "instagram <profile>",
     run: async (client, message, args) => {
@@ -28,7 +27,10 @@ module.exports = {
             .then(msg => {msg.delete({ timeout: 5000 })})
         }
 
+        console.log(res)
+
         const account = res.graphql.user;
+
 
         let instaEmbed = new MessageEmbed()
         .setColor("RANDOM")
@@ -37,19 +39,37 @@ module.exports = {
         .setThumbnail(account.profile_pic_url_hd)
         .setTimestamp()
         .setFooter("Powered By Xeno", `${client.user.avatarURL()}`)
-        /*.addField("Profile Information", `
-        ** > Userame:** ${account.username}
-        ** > Full Name: ** ${account.full_name}
-        ** > Biography:** ${account.biography.lenght == 0 ? "none" : account.biography}
-        ** > Posts:** ${account.edge_owner_to_timeline_media.count}
-        `)*/
-        instaEmbed.addFields(
-            {name: `**Username:**`, value: `${account.username}`, inline: true},
-            {name: `**Full Name:**`, value: `${account.full_name}`, inline: true},
-            {name: `**Biography:**`, value: `${account.biography.lenght == 0 ? "none" : account.biography}`, inline: false},
-            {name: `**Post:**`, value: `${account.edge_owner_to_timeline_media.count}`, inline: true},
-            {name: `**Followers:**`, value: `${account.edge_followed_by.count}`, inline: true},
-            {name: `**Following:**`, value: `${account.edge_follow.count}`, inline: true},
+        .addFields(
+            {
+                name: "Full Name:",
+                value: account.full_name,
+                inline: true
+            },
+            {
+                name: "Username:",
+                value: account.username,
+                inline: true
+            },
+            {
+                name: "Biography:",
+                value: `${account.biography.length == 0 ? "none" : account.biography}`,
+                inline: false
+            },
+            {
+                name: "Posts:",
+                value: account.edge_owner_to_timeline_media.count.toLocaleString(),
+                inline: true
+            },
+            {
+                name: "Followers:",
+                value: account.edge_followed_by.count.toLocaleString(),
+                inline: true
+            },
+            {
+                name: "Following:",
+                value: account.edge_follow.count.toLocaleString(),
+                inline: true
+            }
         )
 
         message.channel.send(instaEmbed);
