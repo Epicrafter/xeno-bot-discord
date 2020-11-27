@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const fetch = require("node-fetch");
 
 module.exports = {
-    name: "status",
+    name: "servstatus",
     category: "hypixel",
     description: "Get's the status of a Hypixel player",
     usage: "status <player>",

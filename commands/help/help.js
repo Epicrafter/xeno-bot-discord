@@ -19,13 +19,13 @@ module.exports = {
             .setDescription("This is a list of commands you can use. You can get more info about a specific command by using ``help <command>`` ``(e.g. help say)``.")
             .addField("Fun:", "``8ball`` ``advice`` ``anime`` ``asciify`` ``clyde`` ``decrypt`` ``didumean`` ``emoji`` ``encrypt`` ``facts`` ``flip`` ``fml`` ``gayrate`` ``howdumb`` ``hug`` ``kill`` ``kiss`` ``meme`` ``morse`` ``oof`` ``pickup`` ``programming`` ``rate`` ``roll`` ``slap`` ``trump`` ``yomama`` ")
             .addField("Games:", "``fortnite`` ``server``")
-            .addField("Hypixel:", "``bedwars`` ``skywars`` ``status``")
+            .addField("Hypixel:", "``bedwars`` ``skywars`` ``servstatus``")
             .addField("Image Manipulation:", "``deepfry`` ``phtext`` ``supreme`` ``trash``")
             .addField("Info:", "``avatar`` ``botinfo`` ``checknsfw`` ``color`` ``corona`` ``instagram`` ``length`` ``ping`` ``serverinfo`` ``status`` ``support`` ``userinfo`` ``weather``")
             .addField("Utilities:", "``apply`` ``bindyt`` ``calc`` ``dm`` ``gif`` ``bin`` ``report`` ``say`` ``shorten`` ``suggest`` ``translate``")
             .addField("Nsfw:", "``hanal`` ``hboobs`` ``hpussy`` ``kitsune`` ``neko``")
             .addField("Moderation:", "``announce`` ``ban`` ``giveaway`` ``kick`` ``mute`` ``purge`` ``unmute`` ``spam`` ``warn`` ``warnings`` ``delwarn``")
-            .addField("Configuration:", "``bindlog`` ``nsfw`` ``welcome`` ``bindwelcome`` ```welcomemsg`` ``goodbye`` ``bindgoodbye`` ``goodbyemsg`` ")
+            .addField("Configuration:", "``bindlog`` ``nsfw`` ``welcome`` ``bindwelcome`` ``welcomemsg`` ``goodbye`` ``bindgoodbye`` ``goodbyemsg`` ")
             .addField("Bot Owner:", "``eval`` ``spam`` ``setgame`` ``stop``")
             /*.addField("NSFW (Only Premium Users)", "``ass`` ``pussy`` ``tits`` ``4k`` ``nsfw``")*/
 
