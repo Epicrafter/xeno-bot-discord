@@ -23,9 +23,9 @@ module.exports = {
             .addField("Image Manipulation:", "``deepfry`` ``ph`` ``supreme``")
             .addField("Info:", "``avatar`` ``botinfo`` ``checknsfw`` ``color`` ``corona`` ``instagram`` ``length`` ``ping`` ``serverinfo`` ``status`` ``support`` ``userinfo`` ``weather``")
             .addField("Utilities:", "``application`` ``bindyt`` ``calc`` ``dm`` ``gif`` ``bin`` ``report`` ``say`` ``shorten`` ``suggest`` ``translate``")
-            .addField("Nsfw:", "``hanal`` ``hboobs`` ``hpussy`` ``kitsune`` ``neko``")
+            /*.addField("Nsfw:", "``hanal`` ``hboobs`` ``hpussy`` ``kitsune`` ``neko``")*/
             .addField("Moderation:", "``announce`` ``ban`` ``giveaway`` ``kick`` ``mute`` ``purge`` ``unmute`` ``spam`` ``warn`` ``warnings`` ``delwarn``")
-            .addField("Configuration:", "``bindlog`` ``nsfw`` ``welcome`` ``bindwelcome`` ``welcomemsg`` ``goodbye`` ``bindgoodbye`` ``goodbyemsg`` ")
+            .addField("Configuration:", "``bindlog`` ``welcome`` ``bindwelcome`` ``welcomemsg`` ``goodbye`` ``bindgoodbye`` ``goodbyemsg`` ")
             .addField("Bot Owner:", "``eval`` ``spam`` ``setgame`` ``stop``")
             /*.addField("NSFW (Only Premium Users)", "``ass`` ``pussy`` ``tits`` ``4k`` ``nsfw``")*/
 
