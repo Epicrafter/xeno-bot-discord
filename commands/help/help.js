@@ -19,7 +19,7 @@ module.exports = {
             .setDescription("This is a list of commands you can use. You can get more info about a specific command by using ``help <command>`` ``(e.g. help say)``.")
             .addField("Fun:", "``8ball`` ``advice`` ``anime`` ``asciify`` ``clyde`` ``decrypt`` ``didumean`` ``emoji`` ``encrypt`` ``fact`` ``flip`` ``fml`` ``gayrate`` ``howdumb`` ``hug`` ``kill`` ``kiss`` ``meme`` ``morse`` ``oof`` ``pickup`` ``rate`` ``roll`` ``slap`` ``trump`` ``yomama`` ")
             .addField("Games:", "``fortnite`` ``server``")
-            .addField("Hypixel:", "``bedwars`` ``skywars`` ``servstatus``")
+            .addField("Hypixel:", "``bedwars`` ``skywars`` ``hstatus``")
             .addField("Image Manipulation:", "``deepfry`` ``ph`` ``supreme``")
             .addField("Info:", "``avatar`` ``botinfo`` ``checknsfw`` ``color`` ``corona`` ``instagram`` ``length`` ``ping`` ``serverinfo`` ``status`` ``support`` ``userinfo`` ``weather``")
             .addField("Utilities:", "``application`` ``bindyt`` ``calc`` ``dm`` ``gif`` ``bin`` ``report`` ``say`` ``shorten`` ``suggest`` ``translate``")
