@@ -8,7 +8,9 @@ module.exports = {
     usage: "instagram <profile>",
     run: async (client, message, args) => {
 
-        const name = args.join(" ");
+        message.channel.send("Sorry this command is temporarily disabled")
+
+        /*const name = args.join(" ");
 
         let usage = new MessageEmbed()
         .setColor("RANDOM")
@@ -72,6 +74,6 @@ module.exports = {
             }
         )
 
-        message.channel.send(instaEmbed);
+        message.channel.send(instaEmbed);*/
     }
 }
