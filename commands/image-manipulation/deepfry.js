@@ -1,4 +1,6 @@
 const { MessageEmbed } = require("discord.js");
+const fetch = require("node-fetch");
+const key = require("../../config.json");
 
 module.exports = {
     name: "deepfry",
@@ -11,13 +13,13 @@ module.exports = {
         let avatar = user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 });
 
 
-        const url = `https://api.alexflipnote.dev/filter/deepfry?image=${avatar}`;
+        const res = await fetch(`https://api.alexflipnote.dev/filter/deepfry?image=${avatar}`, { headers: { 'Authorization': key.alexflipnote, 'User-Agent': 'AlexFlipnote.js@2.2.0 by HarutoHiroki#4000' } });
 
         let embed = new MessageEmbed()
         .setColor("RANDOM")
         .setTimestamp()
         .setFooter("Powered By Xeno", client.user.avatarURL())
-        .setImage(url)
+        .setImage(res)
         .setTitle(`${user.username} was deepfried`)
 
         message.channel.send(embed)
