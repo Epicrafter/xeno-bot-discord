@@ -13,7 +13,7 @@ module.exports = {
         let avatar = user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 });
 
 
-        const res = await fetch(`https://api.alexflipnote.dev/filter/deepfry?image=${avatar}`, { headers: { 'Authorization': key.alexflipnote, 'User-Agent': 'AlexFlipnote.js@2.2.0 by HarutoHiroki#4000' } });
+        const res = await fetch(`https://api.alexflipnote.dev/filter/deepfry?image=${avatar}`, { headers: { 'Authorization': process.env.alex, 'User-Agent': 'AlexFlipnote.js@2.2.0 by HarutoHiroki#4000' } });
 
         let embed = new MessageEmbed()
         .setColor("RANDOM")
