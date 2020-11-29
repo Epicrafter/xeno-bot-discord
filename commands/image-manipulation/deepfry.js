@@ -1,6 +1,5 @@
 const { MessageEmbed } = require("discord.js");
 const fetch = require("node-fetch");
-const key = require("../../config.json");
 
 module.exports = {
     name: "deepfry",
