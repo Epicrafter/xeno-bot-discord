@@ -3,6 +3,9 @@ const db = require("quick.db");
 
 module.exports = {
     name: "addmod",
+    category: "config",
+    description: "This command will add a user to the ``Only Staff`` list.",
+    usage: "addmod <user id>",
     run: async(client, message, args) => {
 
         let id = args[0];

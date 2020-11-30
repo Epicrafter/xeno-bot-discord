@@ -3,6 +3,9 @@ const db = require("quick.db");
 
 module.exports = {
     name: "setrule",
+    category: "config",
+    description: "Adds a rule on the ``Shindo Life`` server.",
+    usage: "setrule <rule number> <rule>",
     run: async(client, message, args) => {
 
         let ruleNum = args[0];

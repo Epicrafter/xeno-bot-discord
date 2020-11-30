@@ -3,6 +3,9 @@ const db = require("quick.db");
 
 module.exports = {
     name: "remmod",
+    category: "config",
+    description: "Removes a user from the ``Only Staff`` list.",
+    usage: "remmod <user id>",
     run: async(client, message, args) => {
 
         let id = args[0];
