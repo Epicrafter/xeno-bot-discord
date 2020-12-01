@@ -79,7 +79,6 @@ client.on('ready', s => {
     ]
 
     console.log(`Ready! Connected as ${client.user.username} with prefix '${prefix}'`);
-    client.channels.cache.get('735928017385291928').send("Bot is now online")
     /*client.user.setActivity(`xt!help`, { type: 'PLAYING' })*/
 
     let i = 0;

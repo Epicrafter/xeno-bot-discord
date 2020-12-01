@@ -7,6 +7,8 @@ module.exports = {
     description: "Returns all commands, or one specific command info",
     run: async (client, message, args) => {
 
+        let serverID = message.guild.id == '376414393249824778';
+
         if(args[0]) {
             return getCMD(client, message, args[0])
         } else {
@@ -25,9 +27,13 @@ module.exports = {
             .addField("Utilities:", "``application`` ``bindyt`` ``calc`` ``dm`` ``gif`` ``bin`` ``report`` ``say`` ``shorten`` ``suggest`` ``translate``")
             /*.addField("Nsfw:", "``hanal`` ``hboobs`` ``hpussy`` ``kitsune`` ``neko``")*/
             .addField("Moderation:", "``announce`` ``ban`` ``giveaway`` ``kick`` ``mute`` ``purge`` ``unmute`` ``spam`` ``warn`` ``warnings`` ``delwarn``")
-            .addField("Configuration:", "``addmod`` ``remmod`` ``rules`` ``setrule`` ``bindlog`` ``welcome`` ``bindwelcome`` ``welcomemsg`` ``goodbye`` ``bindgoodbye`` ``goodbyemsg`` ")
+            .addField("Configuration:", "``addmod`` ``remmod`` ``bindlog`` ``welcome`` ``bindwelcome`` ``welcomemsg`` ``goodbye`` ``bindgoodbye`` ``goodbyemsg`` ")
             .addField("Bot Owner:", "``eval`` ``spam`` ``setgame`` ``stop``")
             /*.addField("NSFW (Only Premium Users)", "``ass`` ``pussy`` ``tits`` ``4k`` ``nsfw``")*/
+
+            if(serverID) {
+                embed.addField("Shindo Life:", "``rules`` ``setrule``")
+            }
 
             message.channel.send(embed)
         }
