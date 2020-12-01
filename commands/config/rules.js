@@ -15,6 +15,19 @@ module.exports = {
         let rule5 = db.get(`_article_5`);
         let rule6 = db.get(`_article_6`);
         let rule7 = db.get(`_article_7`);
+        
+        let server = message.guild.id == '376414393249824778'; 
+
+        let usage = new MessageEmbed()
+        .setColor("RANDOM")
+        .setTimestamp()
+        .setFooter("Powered By Xeno", client.user.avatarURL())
+
+        if(!server) {
+            usage.addField("Unauthorized Access", "Only the ``Shindo Life`` server has access to this command")
+            return message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+        }
 
         if(!args[0]) { 
 
