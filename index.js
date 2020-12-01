@@ -90,7 +90,7 @@ client.on('ready', s => {
 
 client.on("guildMemberAdd", (member) => {
 
-    /*if(member.guild.id == '376414393249824778') {
+    if(member.guild.id == '376414393249824778') {
 
         let wChannel = db.get(`welchannel_${member.guild.id}`);
         let wMessage = db.get(`welcomemsg_${member.guild.id}`);
@@ -127,7 +127,7 @@ client.on("guildMemberAdd", (member) => {
 
         client.channels.cache.get(wChannel).send(attachement);
 
-    } else {*/
+    } else {
 
         let OnOff = db.get(`welcome_${member.guild.id}`);
 
@@ -150,7 +150,7 @@ client.on("guildMemberAdd", (member) => {
 
         }
 
-    /*}*/
+    } 
 
 })
 
