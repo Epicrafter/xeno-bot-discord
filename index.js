@@ -71,10 +71,21 @@ client.giveawaysManager = manager;
 
 
 client.on('ready', s => {
+
+    const activities = [
+        `${client.guilds.cache.size} servers!`,
+        `${client.channels.cache.size} channels!`,
+        `${client.users.cache.size} users!`
+    ]
+
     console.log(`Ready! Connected as ${client.user.username} with prefix '${prefix}'`);
-    client.user.setActivity(`x!help`, { type: 'PLAYING' })
-        .then(presence => console.log(`Activity set to '${presence.activities[0].name}'`))
-        .catch(console.error);
+    client.channels.cache.get('735928017385291928').send("Bot is now online")
+    /*client.user.setActivity(`xt!help`, { type: 'PLAYING' })*/
+
+    let i = 0;
+    setInterval(() => client.user.setActivity(`x!help | ${activities[i++ % activities.length]}`, { type: 'WATCHING' }), 15000)
+    (presence => console.log(`Activity set to '${presence.activities[0].name}'`))
+
 });
 
 client.on("guildMemberAdd", (member) => {
