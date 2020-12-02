@@ -7,7 +7,8 @@ module.exports = {
     description: "Returns all commands, or one specific command info",
     run: async (client, message, args) => {
 
-        let serverID = message.guild.id == '376414393249824778';
+        let shindoServer = message.guild.id == '376414393249824778';
+        let testServer = message.guild.id == '732592546068430939';
 
         if(args[0]) {
             return getCMD(client, message, args[0])
@@ -31,8 +32,12 @@ module.exports = {
             .addField("Bot Owner:", "``eval`` ``spam`` ``setgame`` ``stop``")
             /*.addField("NSFW (Only Premium Users)", "``ass`` ``pussy`` ``tits`` ``4k`` ``nsfw``")*/
 
-            if(serverID) {
+            if(shindoServer) {
                 embed.addField("Shindo Life:", "``rules`` ``setrule``")
+            }
+
+            if(testServer) {
+                embed.addField("Beta Commands:", "``addstaff`` ``checkstaff``")
             }
 
             message.channel.send(embed)
