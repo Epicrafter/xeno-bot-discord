@@ -21,24 +21,6 @@ let prefix = "x!";
 client.on("message", async message => {
 
 
-    /* Moderation System */
-
-    /*if (message.content === 'stfu') {
-        editedmessage = args.join(" ");
-
-        client.message [message.autor.username] = {
-            badword: editedmessage
-        }
-
-        fs.writeFile ("./badwords.json", JSON.stringify (client.message, null, 4), err => {
-            if(err) throw err;
-            message.channel.send("Word added to badwords list.")
-        });
-    }*/
-
-
-    /* Commands Stuff*/
-
     if(message.author.bot) return;
     if(!message.guild) return;
     if(!message.content.startsWith(prefix)) return;
