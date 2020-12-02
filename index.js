@@ -80,11 +80,14 @@ client.on('ready', s => {
     ]
 
     console.log(`Ready! Connected as ${client.user.username} with prefix '${prefix}'`);
-    /*client.user.setActivity(`xt!help`, { type: 'PLAYING' })*/
 
     let i = 0;
-    setInterval(() => client.user.setActivity(`x!help | ${activities[i++ % activities.length]}`, { type: 'WATCHING' }), 15000)
-    (presence => console.log(`Activity set to '${presence.activities[0].name}'`))
+
+    setInterval(() => {
+
+        client.user.setActivity(`xt!help | ${activities[i++ % activities.length]}`, { type: 'WATCHING' })
+
+    }, 15000)
 
 });
 
