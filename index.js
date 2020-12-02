@@ -1,7 +1,6 @@
 // Client
 const { Client, Collection, MessageEmbed } = require('discord.js');
 const fs = require("fs");
-const Canvas = require("canvas");
 const { GiveawaysManager } = require("discord-giveaways");
 const db = require("quick.db");
 const client = new Client({
