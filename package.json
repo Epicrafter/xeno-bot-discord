@@ -2,7 +2,7 @@
   "name": "Xeno Bot",
   "version": "1.0.0",
   "engines": {
-    "node": "14.6.0",
+    "node": "12.x",
     "npm": "6.14.5"
   },
   "description": "Open-source Hypixel Discord BOT (https://github.com/tinopai/hypixelbot)",
