@@ -1,72 +1,161 @@
 const { MessageEmbed } = require("discord.js");
-const talkedRecently = new Set();
+const mongoose = require("mongoose");
+const User = require("../../models/user");
+const Guild = require("../../models/guild");
+const config = require("../../config.json");
+const { exists } = require("../../models/user");
 
 module.exports = {
-    name: "kick",
+    name: "kick", 
     category: "moderation",
-    description: "Kick's a user from the guild",
+    description: "Kicks the mentionned user from your server",
     usage: "kick <@user> <reason>",
-    run: async (client, message, args) => {
+    run: async(client, message, args) => {
 
-        let reason = args.slice(1).join(" ");
-        const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+        try {
+            message.delete();
+        } catch(err) {
+            console.error(err);
+            message.channel.send(`An error occurred while executing this command`);
+        }
+
+        const member = message.mentions.members.first();
+        let reason = args.slice(1).join(' ');
 
         let usage = new MessageEmbed()
         .setColor("RANDOM")
-        if(!message.member.hasPermission("KICK_MEMBERS"))usage.addField("Missing Permission", "``KICK_MEMBERS``")
-        if(!message.guild.me.hasPermission("KICK_MEMBERS"))usage.addField("I am Missing a Permission", "``KICK_MEMBERS``")
-        if(!member)usage.addField("Missing User:", "Usage: kick <@user> <reason>")
-        /*if(!member.kickable)usage.addField("Error:", "This member can't be kicked.")*/
-        if(!member === message.author.id)usage.addField("Erorr:", "You can't kick yourself.")
-        if(!reason)usage.addField("Missing Reason", "Usage: kick <@user> <reason>")
+        .setTimestamp()
+        .setFooter("Powered By Xeno", client.user.avatarURL())
 
-        if(!message.member.hasPermission("KICK_MEMBERS")) {
-            return message.channel.send(usage)
-            .then(msg => {msg.delete({ timeout: 5000})})
-        }
+        const guildDB = await Guild.findOne({
 
-        if(!message.guild.me.hasPermission("KICK_MEMBERS")) {
-            return message.channel.send(usage)
+            guildID: message.guild.id
+
+        }, async(err, guild) => {
+
+            if(err) console.error(err);
+
+            if(!guild) {
+
+                const newGuild = new Guild({
+
+                    _id: mongoose.Types.ObjectId(),
+                    guildID: message.guild.id,
+                    guildName: message.guild.name,
+                    prefix: config.PREFIX,
+                    logChannelID: null,
+                    welcomeChannelID: null,
+                    goodbyeChannelID: null,
+                    welcome: null,
+                    goodbye: null
+
+                })
+
+                await newGuild.save()
+                .then(result => console.log(result))
+                .catch(err => console.error(err))
+
+            }
+
+        })
+
+        const logChannel = message.guild.channels.cache.get(guildDB.logChannelID);
+
+        if(!message.member.hasPermission("KICK_MEMBER")) {
+            usage.addField("Missing Permission", "Only users with the \`\`KICK_MEMBER\`\` permission can use this command.")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
-        if(!member){
-            return message.channel.send(usage)
-            .then(msg => {msg.delete({ timeout: 5000})})
-        }
-
-        /* if(!member.kickable) {
-            return message.channel.send(usage)
+        if(!member) {
+            usage.addField("Missing Mention", "Usage: kick <@user> [reason]")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
-        } */
+            return;
+        }
 
-        if(!member === message.author.id) {
-            return message.channel.send(usage)
-            .then(msg => {msg.delete({ timeout: 5000})})
+        if(!member.kickable) {
+            usage.addField("Error", "This member can't be kicked.")
+            message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
+        }
+
+        if(message.member.roles.highest.position < member.roles.highest.position) {
+            usage.addField("Error", "You cannot kick a member that has a higher role than you.")
+            message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         if(!reason) {
-            return message.channel.send(usage)
+            usage.addField("Missing Reason", "Usage: kick <@user> <reason>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
-        member.kick(reason)
-        .catch(err => {
-            if(err) return message.channel.send("Something went wrong.")
-            .then(msg => {msg.delete({ timeout: 5000 })})
+        User.findOne({
+            guildID: message.guild.id,
+            userID: member.id
+        }, async (err, user) => {
+
+            if(err) console.error(err);
+
+            if(!user) {
+                
+                const newUser = new User({
+                    _id: mongoose.Types.ObjectId(),
+                    guildID: message.guild.id,
+                    userID: member.id,
+                    userName: member.user.username,
+                    muteCount: 0,
+                    warnCount: 0, 
+                    kickCount: 1, 
+                    banCount: 0,
+                })
+
+                await newUser.save()
+                .then(result => console.log(result))
+                .catch(err => console.error(err));
+
+            } else {
+
+                user.updateOne({
+
+                    kickCount: user.kickCount + 1
+
+                })
+                .then(result => console.log(result))
+                .catch(err => console.error(err))
+
+            }
+
         })
 
-        let kickEmbed = new MessageEmbed()
-        .addField(`${member.user.tag} has been kicked from the server`, [
-            `**• Kicked By:** ${message.author}`,
-            `**• Reason:** ${reason}`
-        ])
-        .setTimestamp()
-        .setFooter("Powered By Xeno", `${client.user.avatarURL()}`)
-        .setColor("RANDOM")
+        member.send(`You were kicked from **${message.guild.name}** \n**Reason**: ${reason}`);
+        member.kick(reason);
+        message.channel.send(`<@${member.id}> was **kicked**!`);
+        if(!logChannel) {
+            return;
+        } else {
 
-        message.channel.send(kickEmbed)
+            const kickEmbed = new MessageEmbed()
+            .setColor("RANDOM")
+            .setTimestamp()
+            .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setThumbnail(member.user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }))
+            .addFields(
+                { name: 'Username', value: member.user.username, inline: false },
+                { name: 'User ID', value: member.id, inline: false },
+                { name: 'Kicked by', value: message.author, inline: false },
+                { name: 'Reason', value: reason, inline: false }
+            )
 
-        message.delete();
+            return logChannel.send(kickEmbed)
+
+        }
+
     }
 }

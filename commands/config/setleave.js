@@ -4,35 +4,28 @@ const Guild = require("../../models/guild");
 const config = require("../../config.json");
 
 module.exports = {
-    name: "goodbye",
+    name: "setleave",
     category: "config",
-    description: "Turns on/off the goodbye messages",
-    usage: "goodbye <on/off>",
+    description: "Sets the channel which will announce member that have left the server",
+    usage: "setleave <#channel>",
     run: async(client, message, args) => {
-
-        let OnOff = args[0];
 
         let usage = new MessageEmbed()
         .setColor("RANDOM")
         .setTimestamp()
         .setFooter("Powered By Xeno", client.user.avatarURL())
 
-        if(!message.member.hasPermission("MANAGE_GUILG")) {
+        if(!message.member.hasPermission("MANAGE_GUILD")) {
             usage.addField("Missing Permission", "Only users with the \`\`MANAGE_GUILD\`\` permission can use this command.")
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
             return;
         }
 
-        if(!OnOff) {
-            usage.addField("Missing Argument", "Usage: goodbye <on/off>")
-            message.channel.send(usage)
-            .then(msg => {msg.delete({ timeout: 5000 })})
-            return;
-        }
+        let channel = message.mentions.channels.first();
 
-        if(OnOff != 'on' && OnOff != 'off') {
-            usage.addField("Please provide a valid argument", "Usage: goodbye <on/off>")
+        if(!channel) {
+            usage.addField("Missing Argument", "Usage: setleave <#channel>")
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
             return;
@@ -40,12 +33,12 @@ module.exports = {
 
         await Guild.findOne({
             guildID: message.guild.id
-        }, async (err, guild) => {
+        }, async(err, guild) => {
 
             if(err) console.error(err);
 
             if(!guild) {
-                
+
                 const newGuild = new Guild({
 
                     _id: mongoose.Types.ObjectId(),
@@ -53,10 +46,11 @@ module.exports = {
                     guildName: message.guild.name,
                     prefix: config.PREFIX,
                     logChannelID: null,
-                    welcomeChannelID: channel.id,
-                    goodbyeChannelID: null,
+                    welcomeChannelID: null,
+                    goodbyeChannelID: channel.id,
                     welcome: null,
-                    goodbye: OnOff
+                    goodbye: null
+
 
                 })
 
@@ -64,24 +58,22 @@ module.exports = {
                 .then(result => console.log(result))
                 .catch(err => console.error(err))
 
-                return message.channel.send(`Goodbye messages are now turned \`\`${OnOff}\`\` on this server.`)
+                return message.channel.send(`The goodbye channel has been set to <#${channel.id}>.`);
 
             } else {
 
                 guild.updateOne({
-
-                    goodbye: OnOff
-
+                    goodbyeChannelID: channel.id
                 })
 
                 .then(result => console.log(result))
                 .catch(err => console.error(err))
 
-                return message.channel.send(`Goodbye messages are now turned \`\`${OnOff}\`\` on this server.`)
+                return message.channel.send(`The goodbye channel has been updated to <#${channel.id}>`)
 
             }
 
-        }) 
+        })
 
     }
 }

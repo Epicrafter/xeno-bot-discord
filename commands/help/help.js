@@ -27,9 +27,9 @@ module.exports = {
             .addField("Info:", "``avatar`` ``botinfo`` ``checknsfw`` ``color`` ``corona`` ``instagram`` ``length`` ``ping`` ``serverinfo`` ``status`` ``support`` ``userinfo`` ``weather``")
             .addField("Utilities:", "``application`` ``bindyt`` ``calc`` ``dm`` ``gif`` ``bin`` ``report`` ``say`` ``shorten`` ``suggest`` ``translate``")
             /*.addField("Nsfw:", "``hanal`` ``hboobs`` ``hpussy`` ``kitsune`` ``neko``")*/
-            .addField("Moderation:", "``announce`` ``ban`` ``giveaway`` ``kick`` ``mute`` ``purge`` ``unmute`` ``spam`` ``warn`` ``warnings`` ``delwarn``")
-            .addField("Configuration:", "``addmod`` ``remmod`` ``bindlog`` ``welcome`` ``bindwelcome`` ``welcomemsg`` ``goodbye`` ``bindgoodbye`` ``goodbyemsg`` ")
-            .addField("Bot Owner:", "``eval`` ``spam`` ``setgame`` ``stop``")
+            .addField("Moderation:", "``announce`` ``ban`` ``delwarn`` ``giveaways`` ``kick`` ``mute`` ``purge`` ``unmute`` ``warn`` ``warnings``")
+            .addField("Configuration:", "``goodbye`` ``goodbyemsg`` ``nsfw`` ``setleave`` ``setlogs`` ``setprefix`` ``setwelcome`` ``welcome`` ``welcomemsg``")
+            .addField("Bot Owner:", "``addstaff`` ``checkstaff`` ``eval`` ``remstaff`` ``setgame`` ``spam`` ``stop")
             /*.addField("NSFW (Only Premium Users)", "``ass`` ``pussy`` ``tits`` ``4k`` ``nsfw``")*/
 
             if(shindoServer) {
@@ -37,7 +37,7 @@ module.exports = {
             }
 
             if(testServer) {
-                embed.addField("Beta Commands:", "``addstaff`` ``checkstaff``")
+                embed.addField("Beta Commands:", "none")
             }
 
             message.channel.send(embed)
