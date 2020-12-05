@@ -2,7 +2,11 @@
 const { Client, Collection, MessageEmbed } = require('discord.js');
 const fs = require("fs");
 const { GiveawaysManager } = require("discord-giveaways");
-const db = require("quick.db");
+
+const mongoose = require("mongoose");
+const Guild = require("./models/guild");
+const config = require("./config.json");
+
 const client = new Client({
     disableEveryone: true
 });
@@ -11,14 +15,50 @@ client.commands = new Collection();
 client.alias = new Collection();
 client.categories = fs.readdirSync("./commands/")
 
-let prefix = "x!";
-
 ["command"].forEach(handler => {
     require(`./handler/${handler}`)(client);
 });
 
 client.on("message", async message => {
 
+    if(message.author.bot) return;
+
+    const settings = await Guild.findOne({
+
+        guildID: message.guild.id
+
+    }, (err, guild) => {
+
+        if(err) console.error(err);
+        if(!guild) {
+            const newGuild = new Guild({
+
+                _id: mongoose.Types.ObjectId(),
+                guildID: message.guild.id,
+                guildName: message.guild.name,
+                prefix: config.PREFIX,
+                logChannelID: null,
+                welcomeChannelID: null,
+                goodbyeChannelID: null,
+                welcome: null,
+                goodbye: null
+                
+            })
+
+            newGuild.save()
+            .then(result => console.log(result))
+            .catch(err => console.error(err))
+
+            return message.channel.send(`This server was not in our database! We have now added it and you should be able to use bot commands.`).then(msg => {msg.delete({ timeout: 10000 })});
+        }
+
+    })
+
+    let prefix = settings.prefix;
+
+    if(message.mentions.has('505454012481667072')) {
+        return message.channel.send(`My prefix for this server is \`\`${settings.prefix}\`\``)
+    }
 
     if(message.author.bot) return;
     if(!message.guild) return;
@@ -72,9 +112,9 @@ client.on('ready', s => {
 
 });
 
-client.on("guildMemberAdd", (member) => {
+/*client.on("guildMemberAdd", (member) => {
 
-    /*if(member.guild.id == '376414393249824778') {
+    if(member.guild.id == '376414393249824778') {
 
         let wChannel = db.get(`welchannel_${member.guild.id}`);
         let wMessage = db.get(`welcomemsg_${member.guild.id}`);
@@ -111,7 +151,7 @@ client.on("guildMemberAdd", (member) => {
 
         client.channels.cache.get(wChannel).send(attachement);
 
-    } else {*/
+    } else {
 
         let OnOff = db.get(`welcome_${member.guild.id}`);
 
@@ -134,7 +174,7 @@ client.on("guildMemberAdd", (member) => {
 
         }
 
-    /*} */
+ 
 
 })
 
@@ -161,6 +201,7 @@ client.on("guildMemberRemove", (member) => {
 
     }
 
-})
+})*/
 
+client.mongoose.init();
 client.login(process.env.token); 
