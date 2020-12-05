@@ -101,13 +101,13 @@ client.on('ready', () => {
         `${client.users.cache.size} users!`
     ]
 
-    console.log(`Ready! Connected as ${client.user.username} with prefix xt!`);
+    console.log(`Ready! Connected as ${client.user.username} with prefix x!`);
 
     let i = 0;
 
     setInterval(() => {
 
-        client.user.setActivity(`xt!help | ${activities[i++ % activities.length]}`, { type: 'WATCHING' })
+        client.user.setActivity(`x!help | ${activities[i++ % activities.length]}`, { type: 'WATCHING' })
 
     }, 15000)
 
