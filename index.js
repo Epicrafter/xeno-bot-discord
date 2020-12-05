@@ -72,7 +72,7 @@ client.on("message", async message => {
 
     let prefix = settings.prefix;
 
-    if(message.mentions.has('743445502313627698')) {
+    if(message.mentions.has('505454012481667072')) {
         return message.channel.send(`My prefix for this server is \`\`${settings.prefix}\`\``)
     }
 
