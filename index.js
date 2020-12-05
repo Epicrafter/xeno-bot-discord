@@ -1,7 +1,6 @@
-// Client
-const { Client, Collection, MessageEmbed } = require('discord.js');
+const { Client, Collection, MessageEmbed, MessageAttachment } = require('discord.js');
+const { settings } = require('cluster');
 const fs = require("fs");
-const { GiveawaysManager } = require("discord-giveaways");
 
 const mongoose = require("mongoose");
 const Guild = require("./models/guild");
@@ -14,9 +13,26 @@ const client = new Client({
 client.commands = new Collection();
 client.alias = new Collection();
 client.categories = fs.readdirSync("./commands/")
+client.mongoose = require("./utils/mongoose");
 
 ["command"].forEach(handler => {
     require(`./handler/${handler}`)(client);
+});
+
+fs.readdir('./events/', (err, files) => {
+
+    if(err) return console.error;
+
+    files.forEach(file => {
+
+        if(!file.endsWith('.js')) return;
+        const evt = require(`./events/${file}`);
+        let evtName = file.split('.')[0];
+        console.log(`Loaded event ${evtName}`);
+        client.on(evtName, evt.bind(null, client));
+
+    });
+
 });
 
 client.on("message", async message => {
@@ -56,13 +72,12 @@ client.on("message", async message => {
 
     let prefix = settings.prefix;
 
-    if(message.mentions.has('505454012481667072')) {
+    if(message.mentions.has('743445502313627698')) {
         return message.channel.send(`My prefix for this server is \`\`${settings.prefix}\`\``)
     }
 
-    if(message.author.bot) return;
     if(!message.guild) return;
-    if(!message.content.startsWith(prefix)) return;
+    if(!message.content.startsWith(prefix)) return;  
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const cmd = args.shift().toLowerCase();
@@ -70,29 +85,15 @@ client.on("message", async message => {
     if(cmd.length === 0) return;
 
     let command = client.commands.get(cmd);
+    if(!command) command = client.commands.get(client.aliases.get(cmd));   
 
     if(command)
     command.run(client, message, args);
-    
-});
 
-const manager = new GiveawaysManager(client, {
-    storage: "./giveaways.json",
-    updateCountdownEvery: 10000,
-    default: {
-        botsCanWin: false,
-        exemptPermissions: [ "MANAGE_MESSAGES", "ADMINISTRATOR" ],
-        embedColor: "RANDOM",
-        reaction: "🎉"
-    }
-});
-
-client.giveawaysManager = manager;
-
-;
+})
 
 
-client.on('ready', s => {
+client.on('ready', () => {
 
     const activities = [
         `${client.guilds.cache.size} servers!`,
@@ -100,7 +101,7 @@ client.on('ready', s => {
         `${client.users.cache.size} users!`
     ]
 
-    console.log(`Ready! Connected as ${client.user.username} with prefix '${prefix}'`);
+    console.log(`Ready! Connected as ${client.user.username} with prefix xt!`);
 
     let i = 0;
 
@@ -112,7 +113,7 @@ client.on('ready', s => {
 
 });
 
-/*client.on("guildMemberAdd", (member) => {
+/*client.on("guildMemberAdd", async (member) => {
 
     if(member.guild.id == '376414393249824778') {
 
@@ -174,7 +175,7 @@ client.on('ready', s => {
 
         }
 
- 
+    }
 
 })
 
@@ -204,4 +205,4 @@ client.on("guildMemberRemove", (member) => {
 })*/
 
 client.mongoose.init();
-client.login(process.env.token); 
+client.login('NzQzNDQ1NTAyMzEzNjI3Njk4.XzUxlA.zdiSV_4v4MPjL6_HoZXod7-2UxM'); 
