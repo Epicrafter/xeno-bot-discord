@@ -29,7 +29,7 @@ module.exports = {
             /*.addField("Nsfw:", "``hanal`` ``hboobs`` ``hpussy`` ``kitsune`` ``neko``")*/
             .addField("Moderation:", "``announce`` ``ban`` ``delwarn`` ``giveaways`` ``kick`` ``mute`` ``purge`` ``unmute`` ``warn`` ``warnings``")
             .addField("Configuration:", "``goodbye`` ``goodbyemsg`` ``nsfw`` ``setleave`` ``setlogs`` ``setprefix`` ``setwelcome`` ``welcome`` ``welcomemsg``")
-            .addField("Bot Owner:", "``addstaff`` ``checkstaff`` ``eval`` ``remstaff`` ``setgame`` ``spam`` ``stop")
+            .addField("Bot Owner:", "``addstaff`` ``checkstaff`` ``eval`` ``remstaff`` ``setgame`` ``spam`` ``stop``")
             /*.addField("NSFW (Only Premium Users)", "``ass`` ``pussy`` ``tits`` ``4k`` ``nsfw``")*/
 
             if(shindoServer) {

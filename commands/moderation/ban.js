@@ -1,73 +1,161 @@
 const { MessageEmbed } = require("discord.js");
-const talkedRecently = new Set();
+const mongoose = require("mongoose");
+const User = require("../../models/user");
+const Guild = require("../../models/guild");
+const config = require("../../config.json");
+const { exists } = require("../../models/user");
 
 module.exports = {
-    name: "ban",
+    name: "ban", 
     category: "moderation",
-    description: "Ban's a user from the guild",
+    description: "Bans the mentionned user from your server",
     usage: "ban <@user> <reason>",
-    run: async (client, message, args) => {
+    run: async(client, message, args) => {
 
-        let reason = args.slice(1).join(" ");
-        const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+        try {
+            message.delete();
+        } catch(err) {
+            console.error(err);
+            message.channel.send(`An error occurred while executing this command`);
+        }
+
+        const member = message.mentions.members.first();
+        let reason = args.slice(1).join(' ');
 
         let usage = new MessageEmbed()
         .setColor("RANDOM")
-        if(!message.member.hasPermission("BAN_MEMBERS"))usage.addField("Missing Permission", "``BAN_MEMBERS``")
-        if(!message.guild.me.hasPermission("BAN_MEMBERS"))usage.addField("I am Missing a Permission", "``BAN_MEMBERS``")
-        if(!member)usage.addField("Missing User:", "Usage: ban <@user> <reason>")
-        /*if(!member.kickable)usage.addField("Error:", "This member can't be kicked.")*/
-        if(!member === message.author.id)usage.addField("Error:", "You can't ban yourself.")
-        if(!reason)usage.addField("Missing Reason", "Usage: ban <@user> <reason>")
+        .setTimestamp()
+        .setFooter("Powered By Xeno", client.user.avatarURL())
+
+        const guildDB = await Guild.findOne({
+
+            guildID: message.guild.id
+
+        }, async(err, guild) => {
+
+            if(err) console.error(err);
+
+            if(!guild) {
+
+                const newGuild = new Guild({
+
+                    _id: mongoose.Types.ObjectId(),
+                    guildID: message.guild.id,
+                    guildName: message.guild.name,
+                    prefix: config.PREFIX,
+                    logChannelID: null,
+                    welcomeChannelID: null,
+                    goodbyeChannelID: null,
+                    welcome: null,
+                    goodbye: null
+
+                })
+
+                await newGuild.save()
+                .then(result => console.log(result))
+                .catch(err => console.error(err))
+
+            }
+
+        })
+
+        const logChannel = message.guild.channels.cache.get(guildDB.logChannelID);
 
         if(!message.member.hasPermission("BAN_MEMBERS")) {
-            return message.channel.send(usage)
-            .then(msg => {msg.delete({ timeout: 5000})})
-        }
-
-        if(!message.guild.me.hasPermission("BAN_MEMBERS")) {
-            return message.channel.send(usage)
+            usage.addField("Missing Permission", "Only users with the \`\`KICK_MEMBER\`\` permission can use this command.")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
-        if(!member){
-            return message.channel.send(usage)
-            .then(msg => {msg.delete({ timeout: 5000})})
+        if(!member) {
+            usage.addField("Missing Mention", "Usage: ban <@user> [reason]")
+            message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         if(!member.bannable) {
-            return message.channel.send(usage)
-            .then(msg => {msg.delete({ timeout: 7000 })})
+            usage.addField("Error", "This member can't be banned.")
+            message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
-        if(!member === message.author.id) { 
-            return message.channel.send(usage)
-            .then(msg => {msg.delete({ timeout: 5000})})
+        if(message.member.roles.highest.position < member.roles.highest.position) {
+            usage.addField("Error", "You cannot ban a member that has a higher role than you.")
+            message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         if(!reason) {
-            return message.channel.send(usage)
+            usage.addField("Missing Reason", "Usage: ban <@user> <reason>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
-        member.ban(reason)
-        .catch(err => {
-            if(err) return message.channel.send("Something went wrong.")
-            .then(msg => {msg.delete({ timeout: 5000 })})
+        User.findOne({
+            guildID: message.guild.id,
+            userID: member.id
+        }, async (err, user) => {
+
+            if(err) console.error(err);
+
+            if(!user) {
+                
+                const newUser = new User({
+                    _id: mongoose.Types.ObjectId(),
+                    guildID: message.guild.id,
+                    userID: member.id,
+                    userName: member.user.username,
+                    muteCount: 0,
+                    warnCount: 0, 
+                    kickCount: 0, 
+                    banCount: 1,
+                })
+
+                await newUser.save()
+                .then(result => console.log(result))
+                .catch(err => console.error(err));
+
+            } else {
+
+                user.updateOne({
+
+                    banCount: user.banCount + 1
+
+                })
+                .then(result => console.log(result))
+                .catch(err => console.error(err))
+
+            }
+
         })
 
-        let banEmbed = new MessageEmbed()
-        .addField(`${member.user.tag} has been banned from the server`, [
-            `**• Banned By:** ${message.author}`,
-            `**• Reason:** ${reason}`
-        ])
-        .setTimestamp()
-        .setFooter("Powered By Xeno", `${client.user.avatarURL()}`)
-        .setColor("RANDOM")
+        member.send(`You were banned from **${message.guild.name}** \n**Reason**: ${reason}`);
+        member.ban({ reason: reason });
+        message.channel.send(`<@${member.id}> was **banned**!`);
+        if(!logChannel) {
+            return;
+        } else {
 
-        message.channel.send(banEmbed)
+            const banEmbed = new MessageEmbed()
+            .setColor("RANDOM")
+            .setTimestamp()
+            .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setThumbnail(member.user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }))
+            .addFields(
+                { name: 'Username', value: member.user.username, inline: false },
+                { name: 'User ID', value: member.id, inline: false },
+                { name: 'Banned by', value: message.author, inline: false },
+                { name: 'Reason', value: reason, inline: false }
+            )
 
-        message.delete();
+            return logChannel.send(banEmbed)
+
+        }
 
     }
 }
