@@ -205,4 +205,4 @@ client.on("guildMemberRemove", (member) => {
 })*/
 
 client.mongoose.init();
-client.login('NzQzNDQ1NTAyMzEzNjI3Njk4.XzUxlA.zdiSV_4v4MPjL6_HoZXod7-2UxM'); 
+client.login(process.env.token); 
