@@ -26,7 +26,7 @@ module.exports = {
             .addField("Image Manipulation:", "``deepfry`` ``ph`` ``supreme``")
             .addField("Info:", "``avatar`` ``botinfo`` ``checknsfw`` ``color`` ``corona`` ``instagram`` ``length`` ``ping`` ``serverinfo`` ``status`` ``support`` ``userinfo`` ``weather``")
             .addField("Utilities:", "``application`` ``bindyt`` ``calc`` ``dm`` ``gif`` ``bin`` ``report`` ``say`` ``shorten`` ``suggest`` ``translate``")
-            .addField("Moderation:", "``announce`` ``ban`` ``kick```` ``mute`` ``purge`` ``resetwarns`` ``tempmute`` ``unmute`` ``warn`` ``warnings``")
+            .addField("Moderation:", "``announce`` ``ban`` ``kick`` ``mute`` ``purge`` ``resetwarns`` ``tempmute`` ``unmute`` ``warn`` ``warnings``")
             .addField("Configuration:", "``goodbye`` ``goodbyemsg`` ``nsfw`` ``setleave`` ``setlogs`` ``setprefix`` ``setwelcome`` ``welcome`` ``welcomemsg``")
             .addField("Bot Owner:", "``addstaff`` ``checkstaff`` ``eval`` ``remstaff`` ``setgame`` ``spam`` ``stop``")
 

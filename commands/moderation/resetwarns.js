@@ -1,35 +1,85 @@
 const { MessageEmbed } = require("discord.js");
-const db = require("quick.db");
+const mongoose = require("mongoose");
+const User = require("../../models/user");
+const Guild = require("../../models/guild");
+const config = require("../../config.json");
 
 module.exports = {
-    name: "delwarn",
+    name: "resetwarns",
     category: "moderation",
-    description: "Deletes all the warns of the specified user",
-    usage: "delwarn <@user>",
+    description: "Sets the warns of the mentionned user too 0",
+    usage: "resetwarns <@member>",
     run: async(client, message, args) => {
 
-        let user = message.mentions.members.first();
+        try {
+            message.delete()
+        } catch(err) {
+            console.error(err)
+            message.channel.send(`An error occurred while executing this command`)
+        }
+
+        const member = message.mentions.members.first();
 
         let usage = new MessageEmbed()
         .setColor("RANDOM")
         .setTimestamp()
         .setFooter("Powered By Xeno", client.user.avatarURL())
-        if(!user)usage.addField("Missing User", "Usage: delwarn <@user>")
-        if(!message.member.hasPermission("MANAGE_MESSAGES"))usage.addField("Missing Permissions", "``MANAGE_MESSAGES``")
-
-        if(!user) {
-            return message.channel.send(usage).then(msg => {msg.delete({ timeout: 5000 })})
-        }
-
+        
         if(!message.member.hasPermission("MANAGE_MESSAGES")) {
-            return message.channel.send(usage).then(msg => {msg.delete({ timeout: 5000 })})
+            usage.addField(`Missing Permission", "Only users with the \`\`MANAGE_MESSAGES\`\` permission can use this command`)
+            message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
-        let warnings = db.get(`warnings_${message.guild.id}_${user.id}`);
-        db.delete(`warnings_${message.guild.id}_${user.id}`);
+        if(!member) {
+            usage.addField(`Missing Member Mention", "Usage: warn <@member> <reason>`)
+            message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
+        }
 
-        user.send(`All your warnings in **${message.guild.name}** have been reseted by **${message.author.tag}**`)
-        await message.channel.send(`Reseted all warnings of **${user.user.username}**`)
+        await User.findOne({
+            userID: member.user.id
+        }, async (err, user) => {
+
+            if(err) console.error(err);
+        
+            if(!user) {
+
+                const newUser = new User({
+
+                    _id: mongoose.Types.ObjectId(),
+                    guildID: message.guild.id,
+                    userID: member.user.id,
+                    userName: member.user.username,
+                    muteCount: 0,
+                    warnCount: 0, 
+                    kickCount: 0, 
+                    banCount: 0,
+
+                })
+
+                newUser.save()
+                .then(result => console.log(result))
+                .catch(err => console.error(err))
+
+            } else {
+
+                user.updateOne({
+
+                    warnCount: 0
+
+                })
+
+                .then(result => console.log(result))
+                .catch(err => console.error(err))
+
+            }
+
+        })
+
+        message.channel.send(`**${member.user.username}#${member.user.discriminator}'s** warnings have been reseted`)
 
     }
 }
