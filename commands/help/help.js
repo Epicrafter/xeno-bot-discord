@@ -26,11 +26,9 @@ module.exports = {
             .addField("Image Manipulation:", "``deepfry`` ``ph`` ``supreme``")
             .addField("Info:", "``avatar`` ``botinfo`` ``checknsfw`` ``color`` ``corona`` ``instagram`` ``length`` ``ping`` ``serverinfo`` ``status`` ``support`` ``userinfo`` ``weather``")
             .addField("Utilities:", "``application`` ``bindyt`` ``calc`` ``dm`` ``gif`` ``bin`` ``report`` ``say`` ``shorten`` ``suggest`` ``translate``")
-            /*.addField("Nsfw:", "``hanal`` ``hboobs`` ``hpussy`` ``kitsune`` ``neko``")*/
-            .addField("Moderation:", "``announce`` ``ban`` ``delwarn`` ``giveaways`` ``kick`` ``mute`` ``purge`` ``unmute`` ``warn`` ``warnings``")
+            .addField("Moderation:", "``announce`` ``ban`` kick`` ``mute`` ``purge`` ``resetwarns`` ``tempmute`` ``unmute`` ``warn`` ``warnings``")
             .addField("Configuration:", "``goodbye`` ``goodbyemsg`` ``nsfw`` ``setleave`` ``setlogs`` ``setprefix`` ``setwelcome`` ``welcome`` ``welcomemsg``")
             .addField("Bot Owner:", "``addstaff`` ``checkstaff`` ``eval`` ``remstaff`` ``setgame`` ``spam`` ``stop``")
-            /*.addField("NSFW (Only Premium Users)", "``ass`` ``pussy`` ``tits`` ``4k`` ``nsfw``")*/
 
             if(shindoServer) {
                 embed.addField("Shindo Life:", "``rules`` ``setrule``")

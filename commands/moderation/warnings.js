@@ -1,29 +1,85 @@
 const { MessageEmbed } = require("discord.js");
-const db = require("quick.db");
+const mongoose = require("mongoose");
+const User = require("../../models/user");
+const Guild = require("../../models/guild");
+const config = require("../../config.json");
 
 module.exports = {
-    name: "warnings",
+    name: "resetwarns",
     category: "moderation",
-    description: "Returns the number of warnings the specified user has",
-    usage: "warnings [@user]",
+    description: "Sets the warns of the mentionned user too 0",
+    usage: "resetwarns <@member>",
     run: async(client, message, args) => {
 
-        const user = message.mentions.members.first() || message.author;
+        try {
+            message.delete()
+        } catch(err) {
+            console.error(err)
+            message.channel.send(`An error occurred while executing this command`)
+        }
+
+        const member = message.mentions.members.first();
 
         let usage = new MessageEmbed()
         .setColor("RANDOM")
         .setTimestamp()
         .setFooter("Powered By Xeno", client.user.avatarURL())
-        if(!user)usage.addField("Missing User", "Usage: warnings <@user>")
-
-        if(!user) {
-            return message.channel.send(usage).then(msg => {msg.delete({ timeout: 5000 })})
+        
+        if(!message.member.hasPermission("MANAGE_MESSAGES")) {
+            usage.addField(`Missing Permission", "Only users with the \`\`MANAGE_MESSAGES\`\` permission can use this command`)
+            message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
-        let warnings = db.get(`warnings_${message.guild.id}_${user.id}`);
-        if(warnings === null) warnings = 0;
+        if(!member) {
+            usage.addField(`Missing Member Mention", "Usage: warn <@member> <reason>`)
+            message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
+        }
 
-        message.channel.send(`**${user.user.username}** has ${warnings} warning(s)`)
+        await User.findOne({
+            userID: member.user.id
+        }, async (err, user) => {
+
+            if(err) console.error(err);
+        
+            if(!user) {
+
+                const newUser = new User({
+
+                    _id: mongoose.Types.ObjectId(),
+                    guildID: message.guild.id,
+                    userID: member.user.id,
+                    userName: member.user.username,
+                    muteCount: 0,
+                    warnCount: 0, 
+                    kickCount: 0, 
+                    banCount: 0,
+
+                })
+
+                newUser.save()
+                .then(result => console.log(result))
+                .catch(err => console.error(err))
+
+            } else {
+
+                user.updateOne({
+
+                    warnCount: 0
+
+                })
+
+                .then(result => console.log(result))
+                .catch(err => console.error(err))
+
+            }
+
+        })
+
+        message.channel.send(`**${member.user.username}#${member.user.discriminator}'s** warnings have been reseted`)
 
     }
 }

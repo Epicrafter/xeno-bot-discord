@@ -2,10 +2,10 @@ const { MessageEmbed } = require("discord.js");
 const ms = require('ms');
 
 module.exports = {
-    name: "mute",
+    name: "tempmute",
     category: "moderation",
-    description: "Mutes the mentionned user",
-    usage: "mute <@member> <reason>",
+    description: "Mutes the mentionned user for a specific duration",
+    usage: "tempmute <@member> <duration>",
     run: async(client, message, args) => {
 
         try {
@@ -15,7 +15,8 @@ module.exports = {
         }
 
         let member = message.mentions.members.first();
-        let reason = args.slice(1).join(' ');
+        let time = args[1];
+        console.log(member)
 
         let role = message.guild.roles.cache.find(role => role.name.toLowerCase() === "muted");
 
@@ -32,7 +33,7 @@ module.exports = {
         }
 
         if(!member) {
-            usage.addField("Missing Member Mention", "Usage: mute <@member> <reason>")
+            usage.addField("Missing Member Mention", "Usage: tempmute <@member> <duration>")
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
             return;
@@ -45,8 +46,8 @@ module.exports = {
             return;
         }
 
-        if(!reason) {
-            usage.addField("Missing Reason", "Usage: mute <@member> <reason>")
+        if(!time) {
+            usage.addField("Missing Mute Duration", "Usage: tempmute <@member> <duration>")
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
             return;
@@ -93,14 +94,26 @@ module.exports = {
 
         let avatar = member.user.displayAvatarURL({ format: 'jpg', dynamic: true, size: 1024 });
 
-        member.user.send(`You've been **muted** in **${message.guild.name}**\n **Reason:** ${reason}`);
+        member.user.send(`You've been **muted** in **${message.guild.name}**\n **Duration:** ${time}`);
 
         let muteEmbed = new MessageEmbed()
         .setColor("#363940")
         .setAuthor(`${member.user.username}#${member.user.discriminator} has been muted`, avatar)
-        .setDescription(`**Reason**: ${reason}`)
+        .setDescription(`**Duration**: ${time}`)
 
         message.channel.send(muteEmbed)
+
+        let unmuteEmbed = new MessageEmbed()
+        .setColor("#363940")
+        .setAuthor(`${member.user.username}#${member.user.discriminator} has been unmuted`, avatar)
+
+        setTimeout(async () => {
+
+            await member.roles.remove(muted)
+            member.user.send(`You've been **unmuted** in **${message.guild.name}**`)
+            message.channel.send(unmuteEmbed)
+
+        }, ms(time))
 
     }
 }

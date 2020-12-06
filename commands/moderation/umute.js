@@ -1,13 +1,19 @@
 const { MessageEmbed } = require("discord.js");
+const ms = require('ms');
 
 module.exports = {
     name: "unmute",
     category: "moderation",
-    description: "Unmutes a user",
-    usage: "unmute <@member>", 
+    description: "Unmutes the mentionned user",
+    usage: "unmute <@member>",
     run: async(client, message, args) => {
 
-        const muteRole = message.guild.roles.cache.find((r) => r.name === "muted");
+        try {
+            message.delete();
+        } catch(err) {
+            console.error(err);
+        }
+
         let member = message.mentions.members.first();
 
         let usage = new MessageEmbed()
@@ -15,28 +21,41 @@ module.exports = {
         .setTimestamp()
         .setFooter("Powered By Xeno", client.user.avatarURL())
 
-        if(!message.member.hasPermission("MANAGE_MESSAGES")) {
-            usage.addField("Missing Permission", "``MANAGE_MESSAGES``")
-            return message.channel.send(usage)
+        if(!message.member.hasPermission("MANAGE_ROLES")) {
+            usage.addField("Missing Permission", "Only users with the \`\`MANAGE_ROLES\`\` permission can use this command")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
-
-        if(!member.roles.cache.find((r) => r.name === 'muted')) {
-            usage.addField("Error", "User is not muted")
-            return message.channel.send(usage)
-            .then(msg => {msg.delete({ timeout: 5000 })})
-        }   
 
         if(!member) {
-            usage.addField("Missing Member", "Usage: unmute <@member>")
-            return message.channel.send(usage)
+            usage.addField("Missing Member Mention", "Usage: unmute <@member>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
-        member.roles.remove(muteRole)
+        if(member.id === message.author.id) {
+            usage.addField("Error", "You can't mute yourself")
+            message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
+        }
 
-        member.user.send(`You have been **unmuted** from **${message.guild.name}**`);
-        message.channel.send(`Successfully unmuted **${member.user.tag}**`)
+        let muted = message.guild.roles.cache.find(r => r.name.toLowerCase() === 'muted');
+        
+        if(!member.roles.cache.has(muted.id)) return message.channel.send(`**${member.user.username}** is not muted.`)
+        await member.roles.remove(muted);
+
+        let avatar = member.user.displayAvatarURL({ format: 'jpg', dynamic: true, size: 1024 });
+
+        member.user.send(`You've been **muted** in **${message.guild.name}**`);
+
+        let muteEmbed = new MessageEmbed()
+        .setColor("#363940")
+        .setAuthor(`${member.user.username}#${member.user.discriminator} has been unmuted`, avatar)
+
+        message.channel.send(muteEmbed)
 
     }
-} 
+}

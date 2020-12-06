@@ -5,6 +5,7 @@ const fs = require("fs");
 const mongoose = require("mongoose");
 const Guild = require("./models/guild");
 const config = require("./config.json");
+const Message = require("./models/message");
 
 const client = new Client({
     disableEveryone: true
@@ -109,96 +110,100 @@ client.on('ready', () => {
 
 });
 
-/*client.on("guildMemberAdd", async (member) => {
+client.on("guildMemberAdd", async (member) => {
 
-    if(member.guild.id == '376414393249824778') {
+    const getData = await Guild.findOne({
 
-        let wChannel = db.get(`welchannel_${member.guild.id}`);
-        let wMessage = db.get(`welcomemsg_${member.guild.id}`);
-        let wCustomMessage = wMessage.replace(/-/, `${member.user.username}`);
+        guildID: member.guild.id
 
-        const canvas = Canvas.createCanvas(900, 389);
-        const ctx = canvas.getContext("2d");
+    }).catch(err => console.error(err));
 
-        const background = await Canvas.loadImage("https://i.imgur.com/cufdoc0.jpg");
-        ctx.drawImage(background, 0, 0, canvas.width, canvas.height); 
+    const getMessage = await Message.findOne({
 
-        ctx.font = "25px sans-serif";
-        ctx.fillStyle = '#fff';
-        ctx.textAlign = "center";
-        ctx.fillText(`${wCustomMessage}`, 450, 310);
+        guildID: member.guild.id
 
-        ctx.font = "18px sans-serif";
-        ctx.fillStyle = "#9e9e9e";
-        ctx.textAlign = "center";
-        ctx.fillText(`${member.user.tag}`, 450, 340);
+    }).catch(err => console.error(err));
 
-        ctx.arc(450, 160, 100, 0, Math.PI * 2, true)
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = '#fff';
-        ctx.stroke();
-        ctx.clip();
-        const avatar = await Canvas.loadImage(member.user.displayAvatarURL({ format: 'jpg', size: 2048, dynamic: true }));
-        ctx.drawImage(avatar, 350, 60, 200, 200);
+    let welcomeChannel = getData.welcomeChannelID;
 
-        const attachement = new MessageAttachment(
-            canvas.toBuffer(),
-            "welcome-image.png"
-        )
+    let welcomeEmbed = new MessageEmbed()
+    .setColor("#55efc4")
 
-        client.channels.cache.get(wChannel).send(attachement);
+    if(getData.welcome === 'on') {
 
-    } else {
+        if(!getMessage.welcomemsg) {
 
-        let OnOff = db.get(`welcome_${member.guild.id}`);
-
-        if(OnOff == 'on') {
-
-            let welcomechannel =  db.get(`welchannel_${member.guild.id}`);
-            let welcomemsg = db.get(`welcomemsg_${member.guild.id}`);
-
-            let wcustommsg = welcomemsg.replace(/-/, `<@${member.id}>`);
-
-            let embed1 = new MessageEmbed()
-            .setColor("#2980b9")
-            .setDescription(wcustommsg);
-    
-            client.channels.cache.get(welcomechannel).send(embed1);
+            let welcomemsg = `<@${member.id}> joined the server.`;
+            welcomeEmbed.setDescription(welcomemsg)
+            client.channels.cache.get(welcomeChannel).send(welcomeEmbed)
 
         } else {
-            
-            return;
+
+            let welcomemsg = getMessage.welcomemsg.replace(/-/, `<@${member.id}>`);
+            welcomeEmbed.setDescription(welcomemsg)
+            client.channels.cache.get(welcomeChannel).send(welcomeEmbed)
 
         }
 
-    }
-
-})
-
-client.on("guildMemberRemove", (member) => {
-
-    let OnOff = db.get(`goodbye_${member.guild.id}`);
-
-    if(OnOff == 'on') {
-
-        let goodbyechannel = db.get(`goodchannel_${member.guild.id}`);
-        let goodbyemsg = db.get(`goodbyemsg_${member.guild.id}`);
-
-        let gcustommsg = goodbyemsg.replace(/-/, `<@${member.id}>`)
-
-        let embed2 = new MessageEmbed()
-        .setColor("#c0392b")
-        .setDescription(gcustommsg)
-
-        client.channels.cache.get(goodbyechannel).send(embed2)
-    
-    } else {
+    } else if(getData.welcome === 'off'){ 
 
         return;
 
     }
 
-})*/
+    if(member.guild.id == '376414393249824778') {
+
+        let role = member.guild.roles.cache.find(role => role.name.toLowerCase() === "apprenti ninja");
+        member.roles.add(role)
+
+    }
+
+})
+
+client.on("guildMemberRemove", async (member) => {
+
+    const getData = await Guild.findOne({
+
+        guildID: member.guild.id
+
+    }).catch(err => console.error(err))
+
+    const getMessage = await Message.findOne({
+
+        guildID: member.guild.id
+            
+    }).catch(err => console.error(err))
+
+    let goodbyeChannel = getData.goodbyeChannelID;
+
+    let goodbyeEmbed = new MessageEmbed()
+    .setColor("#ffeaa7")
+
+    if(getData.goodbye === 'on') {
+
+        if(!getMessage.goodbyemsg) {
+
+            let goodbyemsg = `<@${member.id}> left the server.`;
+            goodbyeEmbed.setDescription(goodbyemsg)
+            client.channels.cache.get(goodbyeChannel).send(goodbyeEmbed)
+
+        } else {
+
+            console.log(goodbyeChannel)
+            let goodbyemsg = getMessage.goodbyemsg.replace(/-/, `<@${member.id}>`);
+            goodbyeEmbed.setDescription(goodbyemsg)
+            console.log(goodbyemsg)
+            client.channels.cache.get(goodbyeChannel).send(goodbyeEmbed)
+
+        }
+
+    } else if(getData.goodbye === 'off') {
+
+        return;
+
+    }
+
+}) 
 
 client.mongoose.init();
 client.login(process.env.token);
