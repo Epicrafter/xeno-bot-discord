@@ -4,10 +4,10 @@ const key = process.env.alex;
 const baseURL = require("../../assets/json/baseURL.json");
 
 module.exports = {
-    name: "supreme",
+    name: "achievement",
     category: "image-manipulation",
-    description: "Generate your own Supreme logo",
-    usage: "supreme [dark|light] <text>",
+    description: "Get those achievements like in Minecraft!",
+    usage: "achievement <text>",
     run: async(client, message, args) => {
 
         try {
@@ -16,12 +16,9 @@ module.exports = {
             console.error(err)
         }
 
-        let text = args[0];
-        let color = args[0];
+        let text = args.join(' ');
 
-        if(color == 'dark' || color == 'light') text = args.slice(1).join(' ');
-
-        let url = `${baseURL.URL}/supreme?text=${text}`;
+        let url = `${baseURL.URL}/achievement?text=${text}`;
 
         let usage = new MessageEmbed()
         .setColor("RANDOM")
@@ -34,8 +31,6 @@ module.exports = {
             .then(msg => {msg.delete({ timeout: 5000 })})
             return;
         }
-
-        if(color) url = url + `&${color}=true`;
 
         const res = await fetch(url, {
             headers: {
