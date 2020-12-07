@@ -14,7 +14,7 @@ module.exports = {
 
         let usage = new MessageEmbed()
         .setColor("RANDOM")
-        if(!message.member.hasPermission("MANAGE_MESSAGES"))usage.addField("Missing Permission", "``MANAGE_MESSAGES")
+        if(!message.member.hasPermission("MANAGE_MESSAGES"))usage.addField("Missing Permission", "Only users with the \`\`MANAGE_MESSAGES\`\` permission can use this command")
         if(isNaN(args[0]) || parseInt(args[0]) <= 0)usage.addField("Unvalid number", "Usage: purge <number of messages>")
 
         if(!message.member.hasPermission("MANAGE_MESSAGES")) {
