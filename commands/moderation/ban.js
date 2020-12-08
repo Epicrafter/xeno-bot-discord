@@ -47,7 +47,8 @@ module.exports = {
                     welcomeChannelID: null,
                     goodbyeChannelID: null,
                     welcome: null,
-                    goodbye: null
+                    goodbye: null,
+                    nsfw: null
 
                 })
 
@@ -96,6 +97,13 @@ module.exports = {
             return;
         }
 
+        if(member.id === message.author.id) {
+            usage.addField("Error", "You can't ban yourself")
+            message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
+        }
+
         User.findOne({
             guildID: message.guild.id,
             userID: member.id
@@ -137,21 +145,18 @@ module.exports = {
         member.send(`You were banned from **${message.guild.name}** \n**Reason**: ${reason}`);
         member.ban({ reason: reason });
         message.channel.send(`<@${member.id}> was **banned**!`);
+
+        let avatar = member.user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 });
+
         if(!logChannel) {
             return;
         } else {
 
             const banEmbed = new MessageEmbed()
             .setColor("RANDOM")
-            .setTimestamp()
-            .setFooter("Powered By Xeno", client.user.avatarURL())
-            .setThumbnail(member.user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }))
-            .addFields(
-                { name: 'Username', value: member.user.username, inline: false },
-                { name: 'User ID', value: member.id, inline: false },
-                { name: 'Banned by', value: message.author, inline: false },
-                { name: 'Reason', value: reason, inline: false }
-            )
+            .setAuthor(`${member.user.username}#${member.user.discriminator} has been banned`, avatar)
+            .setDescription(`**User ID**: ${member.user.id}\n**Banned By**: ${message.author.id}\n**Reason**: ${reason}`)
+            .setThumbnail(avatar)
 
             return logChannel.send(banEmbed)
 

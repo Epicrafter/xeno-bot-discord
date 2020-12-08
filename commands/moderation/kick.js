@@ -47,7 +47,8 @@ module.exports = {
                     welcomeChannelID: null,
                     goodbyeChannelID: null,
                     welcome: null,
-                    goodbye: null
+                    goodbye: null,
+                    nsfw: null
 
                 })
 
@@ -61,7 +62,7 @@ module.exports = {
 
         const logChannel = message.guild.channels.cache.get(guildDB.logChannelID);
 
-        if(!message.member.hasPermission("KICK_MEMBER")) {
+        if(!message.member.hasPermission("KICK_MEMBERS")) {
             usage.addField("Missing Permission", "Only users with the \`\`KICK_MEMBER\`\` permission can use this command.")
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
@@ -91,6 +92,13 @@ module.exports = {
 
         if(!reason) {
             usage.addField("Missing Reason", "Usage: kick <@user> <reason>")
+            message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
+        }
+
+        if(member.id === message.author.id) {
+            usage.addField("Error", "You can't kick yourself")
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
             return;
@@ -137,21 +145,18 @@ module.exports = {
         member.send(`You were kicked from **${message.guild.name}** \n**Reason**: ${reason}`);
         member.kick(reason);
         message.channel.send(`<@${member.id}> was **kicked**!`);
+
+        let avatar = member.user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 });
+
         if(!logChannel) {
             return;
         } else {
 
             const kickEmbed = new MessageEmbed()
-            .setColor("RANDOM")
-            .setTimestamp()
-            .setFooter("Powered By Xeno", client.user.avatarURL())
-            .setThumbnail(member.user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }))
-            .addFields(
-                { name: 'Username', value: member.user.username, inline: false },
-                { name: 'User ID', value: member.id, inline: false },
-                { name: 'Kicked by', value: message.author, inline: false },
-                { name: 'Reason', value: reason, inline: false }
-            )
+            .setColor("#363940")
+            .setAuthor(`${member.user.username}#${member.user.discriminator} has been kicked`, avatar)
+            .setThumbnail(avatar)
+            .setDescription(`**User ID**: ${member.user.id}\n**Kicked By**: ${message.author.id}\n**Reason**: ${reason}`)
 
             return logChannel.send(kickEmbed)
 
