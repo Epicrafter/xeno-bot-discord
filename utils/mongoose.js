@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+let datakey = process.env.database;
 
 module.exports = {
     init: () => {
@@ -14,7 +15,7 @@ module.exports = {
             family: 4
         };
 
-        mongoose.connect('mongodb+srv://Epicrafter:Husky2005@xeno.5sep0.mongodb.net/Xeno_Discord_Bot', dbOptions);
+        mongoose.connect(`mongodb+srv://Epicrafter:${datakey}@xeno.5sep0.mongodb.net/Xeno_Discord_Bot`, dbOptions);
         mongoose.set('useFindAndModify', false);
         mongoose.Promise = global.Promise;
 
