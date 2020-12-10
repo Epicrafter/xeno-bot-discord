@@ -5,7 +5,7 @@ const Staff = require("../../models/staff");
 
 module.exports = {
     name: "setrule",
-    category: "shindo-life",
+    category: "shindo",
     description: "Updates/Adds a rule to the Shindo Life server",
     usage: "setrule <rule number> | <rule title> | <rule image> | <rule>",
     run: async(client, message, args) => {
@@ -99,7 +99,7 @@ module.exports = {
 
             } else {
 
-                checkRule.updateOne({
+                Rules.updateOne({
                     ruleTitle: res[1],
                     ruleImage: res[2],
                     rule: res[3]
