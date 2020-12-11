@@ -23,13 +23,23 @@ module.exports = {
         }
 
         let embed = new MessageEmbed()
-        .setAuthor(`${message.author.tag}`, `${message.author.displayAvatarURL()}`)
+        .setAuthor(`New Suggestion from ${message.author.tag}`, `${message.author.displayAvatarURL()}`)
         .setColor("RANDOM")
         .addField("Suggestion:", `${suggestion}`)
 
         message.channel.send(embed)
-        .then(message.react('🔼'))
-        .then(message.react('🔽'))
+        .then(message => {
+
+            message.react('✅').then( r => {
+            message.react('❎').then(r => {
+                
+                message.delete({ timeout: 86400 })
+
+            })
+
+            })
+        })
+        
 
         let embed2 = new MessageEmbed()
         .setAuthor(`New Suggestion from ${message.author.tag}`, `${message.author.displayAvatarURL()}`)
