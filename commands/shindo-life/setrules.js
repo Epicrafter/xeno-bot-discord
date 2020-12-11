@@ -99,12 +99,14 @@ module.exports = {
 
             } else {
 
-                Rules.updateOne({
+                rules.updateOne({
                     ruleTitle: res[1],
                     ruleImage: res[2],
                     rule: res[3]
         
                 })
+                .then(result => console.log(result))
+                .catch(err => console.error(err))
 
             }
 
