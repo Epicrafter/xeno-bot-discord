@@ -31,7 +31,7 @@ module.exports = {
             .addField("Bot Owner:", "``addstaff`` ``checkstaff`` ``eval`` ``remstaff`` ``setgame`` ``spam`` ``stop``")
 
             if(shindoServer) {
-                embed.addField("Shindo Life:", "``rules`` ``setrule``")
+                embed.addField("Shindo Life:", "``join`` ``rules`` ``setrule``")
             }
 
             if(testServer) {
