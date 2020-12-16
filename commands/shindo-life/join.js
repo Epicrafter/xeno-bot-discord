@@ -1,9 +1,11 @@
 const { MessageEmbed } = require("discord.js");
+const mongoose = require("mongoose");
+const Shindo = require("../../models/shindo-life");
 
 module.exports = {
     name: "join",
     category: "shindo-life",
-    description: "Sert a rejoindre un pays",
+    description: "",
     usage: "join <konoha|suna|iwa|kumo|kiri>",
     run: async(client, message, args) => {
 
@@ -14,6 +16,8 @@ module.exports = {
         }
 
         let village = args[0].toLowerCase();
+        let role = message.guild.roles.cache.find(role => role.name === village);
+        let roleID = role.id;
 
         let usage = new MessageEmbed()
             .setColor("RANDOM")
@@ -34,11 +38,52 @@ module.exports = {
             return;
         }
 
+        let userInfo = await Shindo.findOne({
+
+            userID: message.author.id
+
+        }, (err, shindo) => {
+
+            if(err) console.error(err);
+
+            if(!shindo) {
+
+                const newShindo = new Shindo({
+
+                    userID: message.author.id,
+                    village: village,
+                    clan: null,
+                    villageID: String,
+                    clanID: null
+
+                })
+
+                newShindo.save()
+                    .then(response => console.log(response))
+                    .catch((err) => console.error(err))
+
+            } else {
+
+                Shindo.updateOne({
+
+                    userID: message.author.id,
+                    village: village,
+                    clan: null,
+                    villageID: roleID,
+                    clanID: null
+
+                })
+                    .then(result => console.log(result))
+                    .catch((err) => console.error(err))
+
+            }
+
+        });
+
         let typo;
         if(args[0] === 'iwa') typo = 'd\'';
         if(args[0] === 'konoha' || args[0] === 'suna' || args[0] === 'kumo' || args[0] === 'kiri') typo = 'de';
 
-        let role = message.guild.roles.cache.find(role => role.name === village)
         if(message.member.roles.cache.some(role => role.name === "konoha" || role.name === "suna" || role.name === "iwa" || role.name === "kumo" || role.name === "kiri")) {
 
             let already = new MessageEmbed()
