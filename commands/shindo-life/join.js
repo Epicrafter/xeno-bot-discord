@@ -3,7 +3,7 @@ const { MessageEmbed } = require("discord.js");
 module.exports = {
     name: "join",
     category: "shindo-life",
-    description: "",
+    description: "Sert a rejoindre un pays",
     usage: "join <konoha|suna|iwa|kumo|kiri>",
     run: async(client, message, args) => {
 
