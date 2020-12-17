@@ -1,7 +1,4 @@
 const { MessageEmbed, MessageAttachment } = require("discord.js");
-const fetch = require("node-fetch");
-const config = require("../../config.json");
-const baseURL = require("../../config/baseURL.json");
 
 module.exports = {
     name: "lovecalc",
