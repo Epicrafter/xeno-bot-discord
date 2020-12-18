@@ -24,7 +24,7 @@ module.exports = {
             .setColor(process.env.embedcolor)
 
         if(!text) {
-            usage.addField("Missing Text", "Usage: supreme [dark|light] <text>")
+            usage.addField("Missing Text", "Usage: achievement <text>")
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
             return;
