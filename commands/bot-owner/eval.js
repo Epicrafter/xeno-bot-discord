@@ -11,21 +11,20 @@ module.exports = {
         let isBotOwner = message.author.id == '342333088573161472';
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
-        if(!isBotOwner)usage.addField("Missing Permissions", "Only the ``Bot Owner`` can execute this command")
-        if(!args.join(' '))usage.addField("Missing Code to Eval", "Usage: eval <code to eval>")
+            .setColor(process.env.embedcolor)
 
         if(!isBotOwner) {
-        return message.channel.send(usage)
-        .then(msg => {msg.delete({ timeout: 5000 })})
+            usage.addField("Missing Permission", "Only the \`\`Bot_Owner`` can use this command")
+            message.channel.send(usage)
+                .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         if(!args.join(' ')) {
-            return message.channel.send(usage)
+            usage.addField("Missing Code", "Please enter some code to evaluate\nUsage: eval <code to eval>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
-            }
+        }
     
 
         try {

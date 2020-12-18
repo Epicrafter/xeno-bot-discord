@@ -10,9 +10,7 @@ module.exports = {
         let member = message.mentions.members.first();
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.embedcolor)
 
         if(!botOwner) { 
             usage.addField("Missing Permission", "Only the \`\`BOT OWNER\`\` can execute this command.")
