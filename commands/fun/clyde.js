@@ -14,7 +14,6 @@ module.exports = {
 
         let usage = new MessageEmbed()
             .setColor(process.env.embedcolor)
-        if(!text)usage.addField("Missing Message", "Usage: clyde <message>")
 
         if(!text) {
             usage.addField("Missing Message", "Usage: clyde <message>")

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="879642d4-3645-4edd-9ace-5e9eaa6d2368" name="Default Changelist" comment="" />
+    <list default="true" id="879642d4-3645-4edd-9ace-5e9eaa6d2368" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/commands/fun/clyde.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fun/clyde.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,7 +50,7 @@
       <workItem from="1608117126778" duration="699000" />
       <workItem from="1608138562109" duration="3889000" />
       <workItem from="1608201304143" duration="1909000" />
-      <workItem from="1608294534830" duration="5341000" />
+      <workItem from="1608294534830" duration="5672000" />
     </task>
     <servers />
   </component>
