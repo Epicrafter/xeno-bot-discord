@@ -11,10 +11,7 @@ module.exports = {
         const text = args.join(" ");
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
-        .addField("Missing Text", "Usage: asciify <text>")
+        .setColor(procces.env.embedcolor)
 
         if(!text) {
             usage.addField("Missing Text", "Usage: asciify <text>")
