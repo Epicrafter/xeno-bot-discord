@@ -13,20 +13,27 @@ module.exports = {
         }
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        if(!message.member.hasPermission("MANAGE_MESSAGES"))usage.addField("Missing Permission", "Only users with the \`\`MANAGE_MESSAGES\`\` permission can use this command")
-        if(isNaN(args[0]) || parseInt(args[0]) <= 0)usage.addField("Unvalid number", "Usage: purge <number of messages>")
+            .setColor(process.env.embedcolor)
 
         if(!message.member.hasPermission("MANAGE_MESSAGES")) {
-            return message.channel.send(usage).then(msg => {msg.delete({ timeout: 5000 })});
+            usage.addField("Missing Permission", "Only users with the \`\`MANAGE_MESSAGES\`\` permission can use this command")
+            message.channel.send(usage)
+                .then(msg => {msg.delete({ timeout: 5000 })});
+            return
         }
 
         if(!message.guild.me.hasPermission("MANAGE_MESSAGE")) {
-            return message.channel.send(usage).then(msg => {msg.delete({ timeout: 5000 })});
+            usage.addField("Missing Permission", "In order to run this command in need the \`\`MANAGE_MESSAGES\`\` permission")
+            message.channel.send(usage)
+                .then(msg => {msg.delete({ timeout: 5000 })});
+            return;
         }
 
         if(isNaN(args[0]) || parseInt(args[0]) <= 0) {
-            return message.channel.send(usage).then(msg => {msg.delete({ timeout: 5000 })});
+            usage.addField("Invalid Number", "Usage: purge <number of messages>")
+            message.channel.send(usage)
+                .then(msg => {msg.delete({ timeout: 5000 })});
+            return;
         }
         
         let deleteAmout;

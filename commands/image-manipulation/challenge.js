@@ -21,9 +21,7 @@ module.exports = {
         let url = `${baseURL.URL}/challenge?text=${text}`;
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.embedcolor)
 
         if(!text) {
             usage.addField("Missing Text", "Usage: supreme [dark|light] <text>")

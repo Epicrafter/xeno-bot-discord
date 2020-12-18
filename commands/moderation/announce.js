@@ -12,25 +12,28 @@ module.exports = {
         let annoucement = args.slice(1).join(" ");
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        if(!id)usage.addField("Missing Channel ID", "Usage: announce <channel id> <message>")
-        if(!annoucement)usage.addField("Missing Announcement Message", "Usage: announce <channel id> <message>")
-        if(!message.member.hasPermission("MANAGE_MESSAGES"))usage.addField("Missing Permission", "``MANAGE_MESSAGES``")
+            .setColor(process.env.embedcolor)
 
         if(!message.member.hasPermission("MANAGE_MESSAGES")) {
-            return message.channel.send(usage)
+            usage.addField("Missing Permission", "Only users with the \`\`MANAGE_MESSAGES\`\` permission can use this command")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
             .then(message.delete())
+            return;
         }
 
         if(!id) {
-            return message.channel.send(usage)
+            usage.addField("Missing Channel ID", "Usage: announce <channel id> <message>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return
         }
 
         if(!annoucement) {
-            return message.channel.send(usage)
+            usage.addField("Missing Annoucement Message", "Usage: announce <channel id> <message>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         client.channels.cache.get(id).send(annoucement);

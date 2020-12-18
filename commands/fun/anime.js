@@ -22,13 +22,13 @@ module.exports = {
           }
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
-        .addField("Missing Anime Name", "Usage: anime <anime>")
+            .setColor(process.env.embedcolor)
         
         if(!anime) {
-            return message.channel.send(usage).then(msg => {msg.delete({ timeout: 5000 })})
+            usage.addField("Missing Anime Name", "Usage: anime <anime>")
+            message.channel.send(usage)
+                .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         get(option).then(body => {

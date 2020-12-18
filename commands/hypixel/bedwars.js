@@ -8,13 +8,13 @@ module.exports = {
     run: async (client, message, args) => {
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.embedcolor)
 
         if(!args[0]) {
             usage.addField("Missing Player's Username", "Usage: bedwars <username>")
-            return message.channel.send(usage).then(msg => {msg.delete({ timeout: 5000 })})
+            message.channel.send(usage)
+                .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         const uUrl = await `https://api.mojang.com/users/profiles/minecraft/${args[0]}`;

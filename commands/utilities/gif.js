@@ -13,12 +13,13 @@ module.exports = {
         let gif = args.join(" ");
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .addField("Missing Gif", "Usage: gif <gif>")
+            .setColor(process.env.embedcolor)
 
         if(!gif) {
-            return message.channel.send(usage)
-            .then(msg => {msg.delete({ timeout: 5000 })});
+            usage.addField("Missing Gif Reasearch", "Usage: gif <gif>")
+            message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+            return
         }
 
         giphy.search(gif, function (err, res){

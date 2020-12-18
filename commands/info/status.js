@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     name: "status",
-    category: "server_and_user",
+    category: "info",
     description: "Returns the status of a specified user",
     usage: "status [@user]",
     run: async(client, message, args) => {

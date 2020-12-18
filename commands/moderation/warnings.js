@@ -14,9 +14,7 @@ module.exports = {
         let member = message.mentions.members.first();
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setFooter("Powered By Xeno", client.user.avatarURL())
-        .setTimestamp()
+            .setColor(process.env.embedcolor)
 
         if(!message.member.hasPermission("MANAGE_MESSAGES")) {
             usage.addField("Missing Permission", "Only users with the \`\`MANAGE_MESSAGES\`\` permission can use this command")

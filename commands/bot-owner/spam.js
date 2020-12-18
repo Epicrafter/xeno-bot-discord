@@ -13,27 +13,28 @@ module.exports = {
       let isBotOwner = message.author.id == '342333088573161472';
       let user = message.mentions.members.first() || message.guild.members.cache.get(args[0])
 
-      let usage = new MessageEmbed()
-      .setColor("RANDOM")
-      .setTimestamp()
-      .setFooter("Powered By Xeno", client.user.avatarURL())
-      if(!isBotOwner)usage.addField("Missing Permissions", "Only the ``Bot Owner`` can execute this command")
-      if(!user)usage.addField("Missing User", "Usage: spam <@user> <message>")
-      if(!dm)usage.addField("Missing Message", "Usage: spam <@user> <message>")
+        let usage = new MessageEmbed()
+            .setColor(process.env.embedcolor)
 
       if(!isBotOwner) {
-        return message.channel.send(usage)
-        .then(msg => {msg.delete({ timeout: 5000 })})
+          usage.addField("Missing Permission", "Only the \`\`BOT OWNER\`\` can use this command")
+          message.channel.send(usage)
+              .then(msg => {msg.delete({ timeout: 5000 })})
+          return;
       }
 
       if(!user) {
-        return message.channel.send(usage)
-        .then(msg => {msg.delete({ timeout: 5000 })})
+          usage.addField("Missing User Mention", "Please mention the user you want to spam\nUsage: spam <@user> <message>")
+          message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+          return;
       }
 
       if(!dm) {
-        return message.channel.send(usage)
-        .then(msg => {msg.delete({ timeout: 5000 })})
+          usage.addField("Missing Message", "Please provide the message you would like to spam\nUsage: spam <@user> <message>")
+          message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+          return;
       }
 
       setInterval (function () {

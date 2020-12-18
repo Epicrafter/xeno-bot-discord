@@ -19,9 +19,7 @@ module.exports = {
         let color = args[0];
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.embedcolor)
         
         if(!color) {
             usage.addField("Missing Hex Color", "Usage: color <hex code>")

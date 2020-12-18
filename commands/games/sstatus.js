@@ -2,21 +2,19 @@ const { MessageEmbed } = require("discord.js")
 const util = require("minecraft-server-util");
 
 module.exports = {
-    name: "status",
+    name: "sstatus",
     category: "games",
     description: "Returns the status of the mentionned server",
-    usage: "status <server address>",
+    usage: "hstatus <server address>",
     run: async(client, message, args) => {
 
         let ip = args[0];
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.color)
 
         if(!ip) {
-            usage.addField("Missing Server Address", "Usage: status <server address>")
+            usage.addField("Missing Server Address", "Usage: hstatus <server address>")
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
             return;

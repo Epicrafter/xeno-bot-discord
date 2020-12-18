@@ -10,14 +10,14 @@ module.exports = {
         let msgl = args.join(" ");
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.embedcolor)
         .addField("Missing Text", "Usage: length <text>")
 
         if(!msgl) {
-            return message.channel.send(usage)
+            usage.addField("Missing Text", "Usage: length <text>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         message.channel.send(`Text length: \`\`${msgl.length}\`\``)

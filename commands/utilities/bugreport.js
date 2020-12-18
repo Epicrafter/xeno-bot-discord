@@ -16,13 +16,13 @@ module.exports = {
         let bug = args.join(' ');
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
-        if(!bug)usage.addField("Missing Bug Report", "Usage: bugreprot <bug>")
+            .setColor(process.env.embedcolor)
 
         if(!bug) {
-            message.channel.send(usage).then(msg => {msg.delete({ timeout: 5000 })})
+            usage.addField("Missing Bug Explanation", "Usage: bugreport <bug>")
+            message.channel.send(usage)
+                .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         let embed = new MessageEmbed()

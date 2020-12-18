@@ -12,12 +12,13 @@ module.exports = {
         let say = args.join(" ");
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .addField("Missing Message", "Usage: say <message>")
+            .setColor(process.env.embedcolor)
 
         if(!say) {
-            return message.channel.send(usage)
+            usage.addField("Missing Message", "Usage: say <message>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         message.channel.send(say);

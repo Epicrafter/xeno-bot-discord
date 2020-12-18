@@ -23,9 +23,7 @@ module.exports = {
         let reason = args.slice(1).join(' ');
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.embedcolor)
 
         const guildDB = await Guild.findOne({
 

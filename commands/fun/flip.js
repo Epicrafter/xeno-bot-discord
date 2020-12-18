@@ -9,15 +9,14 @@ module.exports = {
     usage: "flip <text>",
     run: async (client, message, args) => {
 
-    let usage = new MessageEmbed()
-    .setColor("RANDOM")
-    .setTimestamp()
-    .setFooter("Powered By Xeno", client.user.avatarURL())
-    .addField("Missing Text to Flip", "Usage: flip <text>")
+        let usage = new MessageEmbed()
+            .setColor(process.env.embedcolor)
     
     if(!args[0]) {
-        return message.channel.send("You must provide text to flip!")
+        usage.addField("Missing Text", "Usage: flip <text>")
+        message.channel.send(usage)
         .then(msg => {msg.delete({ timeout: 5000 })})
+        return
     }
 
     message.channel.send(

@@ -9,9 +9,14 @@ module.exports = {
 
       let isBotOwner = message.author.id == '342333088573161472';
 
+        let usage = new MessageEmbed()
+            .setColor(process.env.embedcolor)
+
       if(!isBotOwner) {
-        return message.channel.send("You cannot execute this command.")
-        .then(msg => {msg.delete({ timeout: 5000 })})
+          usage.addField("Missing Permission", "Only the \`\`BOT OWNER\`\` can use this command")
+          message.channel.send(usage)
+            .then(msg => {msg.delete({ timeout: 5000 })})
+          return;
       }
 
       client.destroy();

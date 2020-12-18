@@ -28,22 +28,19 @@ module.exports = {
             message.channel.send(embed)
 
         } else {
-            
+
             let usage = new MessageEmbed()
-            .setColor("RANDOM")
-            .setTimestamp()
-            .setFooter("Powered By Xeno", client.user.avatarURL())
-            .addField("Invalid Country Name", "Please enter a valid country name")
+                .setColor(process.env.embedcolor)
 
             const country = args.join(' ');
             const url = `https://corona.lmao.ninja/v2/countries/${country}`;
             const res = await fetch(url).then(url => url.json());
 
             if(res.message) {
-                
-                return message.channel.send(usage)
+                usage.addField("Invalid Country Name", "Usage: corona [country]")
+                message.channel.send(usage)
                 .then(msg => {msg.delete({ timeout: 5000})})
-
+                return;
             }
 
             let embed = new MessageEmbed()

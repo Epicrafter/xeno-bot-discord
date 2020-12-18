@@ -21,17 +21,17 @@ module.exports = {
             .setTitle("Help")
             .setDescription("This is a list of commands you can use. You can get more info about a specific command by using ``help <command>`` ``(e.g. help say)``.")
             .addField("Fun:", "``8ball`` ``advice`` ``anime`` ``asciify`` ``clyde`` ``decrypt`` ``didumean`` ``emoji`` ``encrypt`` ``fact`` ``flip`` ``fml`` ``gayrate`` ``hack`` ``howdumb`` ``hug`` ``kill`` ``kiss`` ``lovecalc`` ``meme`` ``morse`` ``oof`` ``pickup`` ``rate`` ``roll`` ``slap`` ``trump`` ``yomama``")
-            .addField("Games:", "``fortnite`` ``status``")
+            .addField("Games:", "``sstatus`` ``among-us``")
             .addField("Hypixel:", "``bedwars`` ``skywars`` ``hstatus``")
             .addField("Image Manipulation:", "``achievement`` ``challenge`` ``ph`` ``supreme``")
             .addField("Info:", "``avatar`` ``botinfo`` ``checknsfw`` ``color`` ``corona`` ``instagram`` ``length`` ``ping`` ``serverinfo`` ``status`` ``support`` ``userinfo`` ``weather``")
             .addField("Utilities:", "``bugreport`` ``calc`` ``color`` ``dm`` ``gif`` ``hastebin`` ``report`` ``say`` ``shorten`` ``suggest`` ``ticket-close`` ``ticket-create`` ``translate``")
-            .addField("Moderation:", "``announce`` ``ban`` ``kick`` ``mute`` ``purge`` ``resetwarns`` ``tempmute`` ``unmute`` ``warn`` ``warnings``")
+            .addField("Moderation:", "``announce`` ``ban`` ``kick`` ``lock`` ``mute`` ``purge`` ``resetwarns`` ``slowmode`` ``tempmute`` ``unmute`` ``unlock`` ``warn`` ``warnings``")
             .addField("Configuration:", "``goodbye`` ``goodbyemsg`` ``nsfw`` ``setleave`` ``setlogs`` ``setprefix`` ``setwelcome`` ``welcome`` ``welcomemsg``")
             .addField("Bot Owner:", "``addstaff`` ``checkstaff`` ``eval`` ``remstaff`` ``setgame`` ``spam`` ``stop``")
 
             if(shindoServer) {
-                embed.addField("Shindo Life:", "``autorole`` ``join`` ``leave`` ``rules`` ``setrule``")
+                embed.addField("Shindo Life:", "``autorole`` ``code`` ``join`` ``leave`` ``rules`` ``setrule``")
             }
 
             if(testServer) {

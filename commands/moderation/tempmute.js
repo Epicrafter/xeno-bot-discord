@@ -21,9 +21,7 @@ module.exports = {
         let role = message.guild.roles.cache.find(role => role.name.toLowerCase() === "muted");
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.embedcolor)
 
         if(!message.member.hasPermission("MANAGE_ROLES")) {
             usage.addField("Missing Permission", "Only users with the \`\`MANAGE_ROLES\`\` permission can use this command")

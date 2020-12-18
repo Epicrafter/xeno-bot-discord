@@ -50,9 +50,7 @@ module.exports = {
         })
 
         let usage = new MessageEmbed()
-            .setColor("RANDOM")
-            .setFooter("Powered By Xeno", client.user.avatarURL())
-            .setTimestamp()
+            .setColor(process.env.embedcolor)
 
         const roleID = village.villageID;
         let role = message.guild.roles.cache.find(role => role.id == roleID);

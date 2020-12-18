@@ -14,12 +14,13 @@ module.exports = {
         const name = args.join(" ");
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        if(!name)usage.addField("Missing Location", "Usage: weather <location>")
+            .setColor(process.env.embedcolor)
 
         if(!name) {
-            return message.channel.send(usage)
+            usage.addField("Missing Location", "Please enter the location of which you would like to see the weather\nUsage: weather <location>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         const url = `http://api.weatherstack.com/current?access_key=7b6a0f18cbbafd25aaa50f75b1356970&query=${name}`;

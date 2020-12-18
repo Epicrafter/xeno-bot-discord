@@ -12,12 +12,13 @@ module.exports = {
         let type = args.slice(1).join(" ")
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .addField("Missing Text", "Usage: bin <text>")
+            .setColor(process.env.embedcolor)
 
-        if (!args[0]) { 
-            return message.channel.send(usage) 
+        if (!args[0]) {
+            usage.addField("Missing Text", "Usage: bin <text>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         hastebin(haste).then(r => {

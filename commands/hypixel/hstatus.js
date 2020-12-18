@@ -9,13 +9,13 @@ module.exports = {
     run: async (client, message, args) => {
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
-        .addField("Missing Player's Username", "Usage: status <username>")
+            .setColor(process.env.embedcolor)
 
         if(!args[0]) {
-            return message.channel.send(usage).then(msg => {msg.delete({ timeout: 5000 })})
+            usage.addField("Missing Player's Username", "Usage: status <username>")
+            message.channel.send(usage)
+                .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         const uUrl = `https://api.mojang.com/users/profiles/minecraft/${args[0]}`;

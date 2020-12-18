@@ -24,14 +24,13 @@ module.exports = {
         const user = message.mentions.users.first();
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .addField("Missing User to Slap", "Usage: slap <@user>")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", `${client.user.avatarURL()}`)
+            .setColor(process.env.embedcolor)
 
         if(!user) {
-            return message.channel.send(usage)
+            usage.addField("Missing Mention", "Usage: slap <@member>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
         
         let embed = new MessageEmbed()

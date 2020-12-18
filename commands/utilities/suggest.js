@@ -12,14 +12,13 @@ module.exports = {
         let suggestion = args.join(" ");
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
-        .addField("Missin Suggestion", "Usage: suggest <suggestion>")
+            .setColor(process.env.embedcolor)
 
         if(!suggestion) {
-            return message.channel.send(usage)
+            usage.addField("Missing Suggestion", "Usage: suggest <suggestion>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         let embed = new MessageEmbed()
@@ -32,14 +31,14 @@ module.exports = {
 
             message.react('✅').then( r => {
             message.react('❎').then(r => {
-                
+
                 message.delete({ timeout: 86400 })
 
             })
 
             })
         })
-        
+
 
         let embed2 = new MessageEmbed()
         .setAuthor(`New Suggestion from ${message.author.tag}`, `${message.author.displayAvatarURL()}`)

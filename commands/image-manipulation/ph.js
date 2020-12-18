@@ -7,7 +7,7 @@ module.exports = {
     name: "ph",
     category: "image-manipulation",
     description: "Generate your own Pornhub Logo",
-    usage: "ph <text#1> <text#2>",
+    usage: "ph <text 1> <text 2>",
     run: async(client, message, args) => {
 
         try {
@@ -20,19 +20,17 @@ module.exports = {
         let text2 = args[1];
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.embedcolor)
 
         if(!text1) {
-            usage.addField("Missing Text#1", "Usage: ph <text#1> <text#2>")
+            usage.addField("Missing Text 1", "Usage: ph <text 1> <text 2>")
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
             return;
         }
 
         if(!text1) {
-            usage.addField("Missing Text#2", "Usage: ph <text#1> <text#2>")
+            usage.addField("Missing Text 2", "Usage: ph <text 1> <text 2>")
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
             return;

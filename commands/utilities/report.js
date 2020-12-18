@@ -21,9 +21,7 @@ module.exports = {
         let reason = args.slice(1).join(' ');
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setFooter("Powered By Xeno", client.user.avatarURL())
-        .setTimestamp()
+            .setColor(process.env.embedcolor)
 
         if(!member) {
             usage.addField("Missing Member", "Usage: report <@member> <reason>")

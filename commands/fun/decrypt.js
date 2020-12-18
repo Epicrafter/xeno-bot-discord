@@ -13,11 +13,13 @@ module.exports = {
         let demsg = args.join(" ");
 
         let usage = new MessageEmbed()
-        if(!demsg)usage.addField("Missing Encrypted Message", "Usage: decrypt <encrypted message>")
+            .setColor(process.env.embedcolor)
 
         if(!demsg) {
-            return message.channel.send(usage)
+            usage.addField("Missing Encrypted Message", "Usage: decrypt <encrypted message>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         const decryptedString = cryptr.decrypt(demsg);

@@ -13,14 +13,14 @@ module.exports = {
         let text = args.join(" ");
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.embedcolor)
         if(!text)usage.addField("Missing Message", "Usage: clyde <message>")
 
         if(!text) {
-            return message.channel.send(usage)
+            usage.addField("Missing Message", "Usage: clyde <message>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         const url = `https://nekobot.xyz/api/imagegen?type=clyde&text=${text}`;

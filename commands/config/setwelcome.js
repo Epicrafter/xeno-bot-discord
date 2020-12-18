@@ -11,9 +11,7 @@ module.exports = {
     run: async(client, message, args) => {
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.embedcolor)
 
         if(!message.member.hasPermission("MANAGE_GUILD")) {
             usage.addField("Missing Permission", "Only users with the \`\`MANAGE_GUILD\`\` permission can use this command.")
@@ -25,7 +23,7 @@ module.exports = {
         let channel = message.mentions.channels.first();
 
         if(!channel) {
-            usage.addField("Missing Argument", "Usage: setwelcome <#channel>")
+            usage.addField("Missing Channel Mention", "Usage: setwelcome <#channel>")
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
             return;

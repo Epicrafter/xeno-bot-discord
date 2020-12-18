@@ -13,12 +13,10 @@ module.exports = {
         message.delete();
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.embedcolor)
 
         if(!message.member.hasPermission("MANAGE_GUILD")) {
-            usage.addField("Missing Permission", "Required Permission: \`\`MANAGE_GUILD\`\`")
+            usage.addField("Missing Permission", "Only users with the \`\`MANAGE_GUILD\`\` permission can use this command")
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
             return;

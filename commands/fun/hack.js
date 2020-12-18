@@ -5,7 +5,7 @@ module.exports = {
     name: "hack",
     category: "bot-owner",
     description: "Hacks a user on the server",
-    usage: "hack <@user>",
+    usage: "hack [@user]",
     run: async (client, message, args) => {
 
 

@@ -12,21 +12,14 @@ module.exports = {
         let result = evaluate(expression);
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
-        if(!expression)usage.addField("Missing Math Expression", "Usage: calc <expression>")
-        /*if(isNaN(args.join(" ")))usage.addField("Invalid Number", "Usage: x!calc <expression>")*/
+            .setColor(process.env.embedcolor)
 
         if(!expression) {
-            return message.channel.send(usage)
+            usage.addField("Missing Math Expression", "Usage: calc <expression>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
-
-        /*if(isNaN(args.join(" "))) {
-            return message.channel.send(usage)
-            .then(msg => {msg.delete({ timeout: 5000 })})
-        }*/
 
         let embed = new MessageEmbed()
         .setColor("RANDOM")
@@ -34,7 +27,7 @@ module.exports = {
         .setFooter("Powered By Xeno", `${client.user.avatarURL()}`)
         .setDescription(`\`\`\`${args.join(" ")} = ${result}\`\`\``)
 
-            message.channel.send(embed)
+        message.channel.send(embed)
 
     }
 } 

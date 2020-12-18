@@ -20,9 +20,7 @@ module.exports = {
         let roleID = role.id;
 
         let usage = new MessageEmbed()
-            .setColor("RANDOM")
-            .setTimestamp()
-            .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.embedcolor)
 
         if(!village) {
             usage.addField("Nom du village manquant", "Usage: join <konoha|suna|iwa|kumo|kiri>")

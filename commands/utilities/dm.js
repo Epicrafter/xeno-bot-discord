@@ -13,17 +13,20 @@ module.exports = {
         let dm = args.slice(1).join(" ");
 
         let usage = new MessageEmbed()
-        if(!user)usage.addField("Missing User", "Usage: dm <user> <message>")
-        if(!dm)usage.addField("Missing Message", "Usage: dm <user> <message>")
+            .setColor(process.env.embedcolor)
 
         if(!user) {
-            return message.channel.send(usage)
+            usage.addField("Missing User Mention", "Usage: dm <user> <message>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         if(!dm) {
-            return message.channel.send(usage)
+            usage.addField("Missing Message", "Usage: dm <user> <message>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         user.user.send(dm).then(() => message.channel.send(`Successfully sent message too ${user}`)).then(msg => {msg.delete({ timout: 5000})})

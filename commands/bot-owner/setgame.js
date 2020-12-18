@@ -12,26 +12,27 @@ module.exports = {
         let developer = message.author.id == '342333088573161472';
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.embedcolor)
 
         if(!developer) {
             usage.addField("Missing Permissions", "Only \`\`Xeno Bot\`\` developers can execute this command")
-            return message.channel.send(usage)
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         if(!type) {
-            usage.addField("Missing Game Type", "Usage: setgame <type> <status>")
-            return message.channel.send(usage)
+            usage.addField("Missing Game Type", "Please provide an activity type ['PLAYING', 'WATCHING', 'LISTENING']\nUsage: setgame <type> <status>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         if(!game) {
-            usage.addField("Missing Status Name", "Usage: setgame <type> <status>")
-            return message.channel.send(usage)
+            usage.addField("Missing Status Name", "Please provide a status\nUsage: setgame <type> <status>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         await client.user.setActivity(game, { type: type })

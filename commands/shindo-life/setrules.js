@@ -16,9 +16,7 @@ module.exports = {
         let res = aArguments.split('|');
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.embedcolor)
 
         const checkStaff = Staff.findOne({
 

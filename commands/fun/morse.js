@@ -9,16 +9,15 @@ module.exports = {
     run: async (client, message, args) => {
 
 		message.delete();
-		
+
 		let usage = new MessageEmbed()
-		.setColor("RANDOM")
-		.setTimestamp()
-		.setFooter("Powered By Xeno", client.user.avatarURL())
-		.addField("Missing Text", "Usage: morse <text>")
+			.setColor(process.env.embedcolor)
 
 		if(!args.join(" ")) {
-			return message.channel.send(usage)
+			usage.addField("Missing Text", "Usage: morse <text>")
+			message.channel.send(usage)
 			.then(msg => {msg.delete({ timeout: 5000 })})
+			return;
 		}
 
         let alpha = " ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split(""),

@@ -14,11 +14,13 @@ module.exports = {
         const encryptedString = cryptr.encrypt(msg);
 
         let usage = new MessageEmbed()
-        .addField("Missing Text to Encrypt", "Usage: encrypt <text>")
+            .setColor(process.env.embedcolor)
 
         if(!msg) {
-            return message.channel.send(usage)
+            usage.addField("Missing Text", "Usage: encrypt <text>")
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         hastebin(encryptedString).then(r => {

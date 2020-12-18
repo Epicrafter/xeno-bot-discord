@@ -13,26 +13,27 @@ module.exports = {
         const text = args.slice(2).join(' ');
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setColor(process.env.embedcolor)
 
         if(!lang) {
             usage.addField("Missing Language Translated From", "Usage: translate <from language> <to language> <message>")
-            return message.channel.send(usage)
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         if(!toLang) {
             usage.addField("Missing Language to Translate too", "Usage: translate <from language> <to language> <message>")
-            return message.channel.send(usage)
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         if(!text) {
             usage.addField("Missing Text", "Usage: translate <from language> <to language> <message>")
-            return message.channel.send(usage)
+            message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         translate(text, { from: lang, to: toLang }).then(res => {

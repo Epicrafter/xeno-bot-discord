@@ -10,14 +10,13 @@ module.exports = {
         let question = args.join(" ");
 
         let usage = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
-        .addField("Missing Question", "Usage: 8ball <question>")
+            .setColor(process.env.embedcolor)
 
         if(!question) {
-            return message.channel.send(usage)
-            .then(msg => {msg.delete({ timeout: 5000 })})
+            usage.addField("Missing Question", "Usage: 8ball <question>")
+            message.channel.send(usage)
+                .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         const answer = [

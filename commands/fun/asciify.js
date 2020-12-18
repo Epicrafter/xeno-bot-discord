@@ -17,7 +17,10 @@ module.exports = {
         .addField("Missing Text", "Usage: asciify <text>")
 
         if(!text) {
-            return message.channel.send(usage).then(msg => {msg.delete({ timeout: 5000 })})
+            usage.addField("Missing Text", "Usage: asciify <text>")
+            message.channel.send(usage)
+                .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
         }
 
         const bigText = figlet.textSync(text, {
