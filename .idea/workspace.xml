@@ -1,78 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="879642d4-3645-4edd-9ace-5e9eaa6d2368" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/commands/shindo-life/code.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/bot-owner/eval.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/bot-owner/eval.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/bot-owner/remstaff.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/bot-owner/remstaff.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/bot-owner/setgame.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/bot-owner/setgame.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/bot-owner/spam.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/bot-owner/spam.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/bot-owner/stop.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/bot-owner/stop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/config/goodbye.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/config/goodbye.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/config/goodbyemsg.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/config/goodbyemsg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/config/nsfw.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/config/setleave.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/config/setleave.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/config/setlogs.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/config/setlogs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/config/setprefix.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/config/setprefix.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/config/setwelcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/config/setwelcome.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/config/welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/config/welcome.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/config/welcomemsg.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/config/welcomemsg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/fun/8ball.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fun/8ball.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/fun/anime.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fun/anime.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/fun/asciify.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fun/asciify.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/fun/clyde.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fun/clyde.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/fun/decrypt.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fun/decrypt.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/fun/didumean.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/fun/encrypt.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fun/encrypt.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/fun/flip.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fun/flip.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/fun/hack.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fun/hack.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/fun/lovecalc.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fun/lovecalc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/fun/morse.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fun/morse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/fun/slap.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/fun/slap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/games/fortnite.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/games/status.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/games/sstatus.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/help/help.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/help/help.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/hypixel/bedwars.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/hypixel/bedwars.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/hypixel/hstatus.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/hypixel/hstatus.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/hypixel/skywars.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/hypixel/skywars.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/image-manipulation/achievement.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/image-manipulation/achievement.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/image-manipulation/challenge.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/image-manipulation/challenge.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/image-manipulation/ph.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/image-manipulation/ph.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/image-manipulation/supreme.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/image-manipulation/supreme.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/info/checknsfw.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/info/color.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/info/color.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/info/covid-19.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/info/covid-19.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/info/instagram.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/info/length.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/info/length.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/info/status.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/info/status.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/info/weather.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/info/weather.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/moderation/announce.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/moderation/announce.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/moderation/ban.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/moderation/ban.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/moderation/kick.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/moderation/kick.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/moderation/mute.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/moderation/mute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/moderation/purge.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/moderation/purge.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/moderation/resetwarns.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/moderation/resetwarns.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/moderation/tempmute.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/moderation/tempmute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/moderation/umute.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/moderation/umute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/moderation/warn.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/moderation/warn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/moderation/warnings.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/moderation/warnings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/shindo-life/autorole.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/shindo-life/autorole.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/shindo-life/join.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/shindo-life/join.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/shindo-life/leave.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/shindo-life/leave.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/shindo-life/setrules.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/shindo-life/setrules.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/utilities/bugreport.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/utilities/bugreport.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/utilities/calculate.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/utilities/calculate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/utilities/color.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/utilities/color.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/utilities/dm.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/utilities/dm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/utilities/gif.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/utilities/gif.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/utilities/hastebin.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/utilities/hastebin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/utilities/report.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/utilities/report.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/utilities/say.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/utilities/say.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/utilities/shorten.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/utilities/shorten.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/utilities/suggest.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/utilities/suggest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/utilities/translate.js" beforeDir="false" afterPath="$PROJECT_DIR$/commands/utilities/translate.js" afterDir="false" />
-    </list>
+    <list default="true" id="879642d4-3645-4edd-9ace-5e9eaa6d2368" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -119,7 +48,7 @@
       <workItem from="1608117126778" duration="699000" />
       <workItem from="1608138562109" duration="3889000" />
       <workItem from="1608201304143" duration="1909000" />
-      <workItem from="1608294534830" duration="4557000" />
+      <workItem from="1608294534830" duration="5341000" />
     </task>
     <servers />
   </component>

@@ -43,7 +43,7 @@
     "google-translate-api": "^2.3.0",
     "got": "^11.5.1",
     "hastebin-gen": "^2.0.5",
-    "humanize-duration": "^3.23.1",
+    "humanize-duration": "^3.25.0",
     "hypixel-api-nodejs": "^0.1.5",
     "hypixel-api-reborn": "^2.1.2",
     "i": "^0.3.6",
