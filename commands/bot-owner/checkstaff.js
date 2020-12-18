@@ -4,6 +4,9 @@ const Staff = require("../../models/staff");
 
 module.exports = {
     name: "checkstaff",
+    category: "bot-owner",
+    description: "Checks if the memtionned user is part of the Staff list",
+    usage: "checkstaff <@member>",
     run: async(client, message, args) => {
 
         let botOwner = message.author.id == '342333088573161472';
@@ -16,6 +19,13 @@ module.exports = {
             usage.addField("Missing Permission", "Only the \`\`BOT OWNER\`\` can execute this command.")
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
+        }
+
+        if(!member) {
+            usage.addField("Missing Member Mention", "Usage: checkstaff <@member>")
+            message.channel.send(usage)
+                .then(msg => {msg.delete({ timeout: 5000 })})
             return;
         }
 

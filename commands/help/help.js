@@ -24,10 +24,10 @@ module.exports = {
             .addField("Games:", "``sstatus`` ``among-us``")
             .addField("Hypixel:", "``bedwars`` ``skywars`` ``hstatus``")
             .addField("Image Manipulation:", "``achievement`` ``challenge`` ``ph`` ``supreme``")
-            .addField("Info:", "``avatar`` ``botinfo`` ``checknsfw`` ``color`` ``corona`` ``instagram`` ``length`` ``ping`` ``serverinfo`` ``status`` ``support`` ``userinfo`` ``weather``")
-            .addField("Utilities:", "``bugreport`` ``calc`` ``color`` ``dm`` ``gif`` ``hastebin`` ``report`` ``say`` ``shorten`` ``suggest`` ``ticket-close`` ``ticket-create`` ``translate``")
+            .addField("Info:", "``avatar`` ``botinfo`` ``color`` ``corona`` ``length`` ``ping`` ``serverinfo`` ``status`` ``support`` ``userinfo`` ``weather``")
+            .addField("Utilities:", "``bugreport`` ``calc`` ``color`` ``dm`` ``gif`` ``bin`` ``report`` ``say`` ``shorten`` ``suggest`` ``ticket-close`` ``ticket-create`` ``translate``")
             .addField("Moderation:", "``announce`` ``ban`` ``kick`` ``lock`` ``mute`` ``purge`` ``resetwarns`` ``slowmode`` ``tempmute`` ``unmute`` ``unlock`` ``warn`` ``warnings``")
-            .addField("Configuration:", "``goodbye`` ``goodbyemsg`` ``nsfw`` ``setleave`` ``setlogs`` ``setprefix`` ``setwelcome`` ``welcome`` ``welcomemsg``")
+            .addField("Configuration:", "``goodbye`` ``goodbyemsg`` ``setleave`` ``setlog`` ``setprefix`` ``setwelcome`` ``welcome`` ``welcomemsg``")
             .addField("Bot Owner:", "``addstaff`` ``checkstaff`` ``eval`` ``remstaff`` ``setgame`` ``spam`` ``stop``")
 
             if(shindoServer) {

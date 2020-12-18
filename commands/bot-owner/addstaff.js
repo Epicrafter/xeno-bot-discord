@@ -22,6 +22,13 @@ module.exports = {
             return;
         }
 
+        if(!member) {
+            usage.addField("Missing Member Mention", "Please mention the user you would like to add to the Staff List\nUsage: addstaff <@member>")
+            message.channel.send(usage)
+                .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
+        }
+
         const newGuild = new Staff({
             _id: mongoose.Types.ObjectId(),
             userID: member.user.id,

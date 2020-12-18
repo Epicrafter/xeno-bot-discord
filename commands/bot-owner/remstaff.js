@@ -5,7 +5,7 @@ const Staff = require("../../models/staff");
 module.exports = {
     name: "remstaff",
     category: "owner",
-    description: "Adds the mentionned user to the Staff list",
+    description: "Removes the mentionned user to the Staff list",
     usage: "remstaff <@user>",
     run: async(client, message, args) => {
 
@@ -19,6 +19,13 @@ module.exports = {
             usage.addField("Unauthorized Access", "Only the \`\`BOT OWNER\`\` can execute this command")
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
+            return;
+        }
+
+        if(!member) {
+            usage.addField("Missing Member Mention", "Please mention the user you would like to remove from the Staff list\n")
+            message.channel.send(usage)
+                .then(msg => {msg.delete({ timeout: 5000 })})
             return;
         }
 

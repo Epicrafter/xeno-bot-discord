@@ -31,7 +31,7 @@ module.exports = {
         }
 
         if(!member) {
-            usage.addField(`Missing Member Mention", "Usage: warn <@member> <reason>`)
+            usage.addField(`Missing Member Mention`, `Usage: warn <@member> <reason>`)
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
             return;

@@ -11,7 +11,6 @@ module.exports = {
 
         let usage = new MessageEmbed()
             .setColor(process.env.embedcolor)
-        .addField("Missing Text", "Usage: length <text>")
 
         if(!msgl) {
             usage.addField("Missing Text", "Usage: length <text>")
