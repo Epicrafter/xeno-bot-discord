@@ -213,7 +213,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
     if(user.bot) return;
     if(!reaction.message.guild) return;
 
-    if(reaction.message.channel.id === '786940600166645780' || reaction.message.channel.id === '735928017385291928') {
+    if(reaction.message.channel.id == '786940600166645780' || reaction.message.channel.id == '735928017385291928') {
 
         if(reaction.emoji.name === '🌾') {
             await reaction.message.guild.members.cache.get(user.id).roles.add('786940044375097426')
@@ -239,7 +239,7 @@ client.on('messageReactionRemove', async (reaction, user) => {
     if(user.bot) return;
     if(!reaction.message.guild) return;
 
-    if(reaction.message.channel.id === '786940600166645780' || reaction.message.channel.id === '735928017385291928') {
+    if(reaction.message.channel.id == '786940600166645780' || reaction.message.channel.id == '735928017385291928') {
 
         if(reaction.emoji.name === '🌾') {
             await reaction.message.guild.members.cache.get(user.id).roles.remove('786940044375097426')
