@@ -15,7 +15,7 @@ module.exports = {
         let usage = new MessageEmbed()
             .setColor(process.env.embedcolor)
 
-        if(!message.member.hasPermission("MANAGE_GUILG")) {
+        if(!message.member.hasPermission("MANAGE_GUILD")) {
             usage.addField("Missing Permission", "Only users with the \`\`MANAGE_GUILD\`\` permission can use this command.")
             message.channel.send(usage)
             .then(msg => {msg.delete({ timeout: 5000 })})
