@@ -10,8 +10,7 @@ const guildSchema = mongoose.Schema({
     welcomeChannelID: String,
     goodbyeChannelID: String,
     welcome: String,
-    goodbye: String,
-    ticketCount: Number
+    goodbye: String
 
 });
 

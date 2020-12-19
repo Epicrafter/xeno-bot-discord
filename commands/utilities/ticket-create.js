@@ -1,13 +1,16 @@
 const { MessageEmbed } = require("discord.js");
 const mongoose = require("mongoose");
-const Guild = require("../../models/guild");
+const Ticket = require("../../models/ticket");
 let config = require("../../config.json");
+
+const used = new Map();
+const Duration = require("humanize-duration");
 
 module.exports = {
     name: "ticket-create",
     category: "utilities",
     description: "Creates a ticket",
-    usage: "cticker",
+    usage: "ticket-create",
     run: async(client, message, args) => {
 
         try {
@@ -16,58 +19,80 @@ module.exports = {
             console.error(err)
         }
 
-        let guildDB = Guild.findOne({ 
-            
+        let cooldown = used.get(message.author.id);
+
+        if(cooldown && !message.member.hasPermission("MANAGE_MESSAGES")) {
+
+            const remaining = Duration(cooldown - Date.now(), { units: ['h', 'm', 's'], round: true })
+            return message.channel.send(`You need to wait ${remaining} before using this command again.`)
+                .catch(err => console.error(err))
+
+        } else {
+
+            used.set(message.author.id, Date.now() + 3600000);
+            setTimeout(() => {
+                used.delete(message.author.id)
+            }, 3600000)
+
+        }
+
+
+
+        Ticket.findOne({
+
             guildID: message.guild.id
 
-        }, (err, guild) => {
+        }, (err, ticket) => {
 
             if(err) console.error(err);
 
-            if(!guild) {
+            if(!ticket) {
 
-                const newGuild = new Guild({
+                const newTicket = new Ticket({
 
                     _id: mongoose.Types.ObjectId(),
-                    guildId: message.guild.id,
-                    guildName: message.guild.name,
-                    prefix: config.PREFIX,
+                    guildID: message.guild.id,
                     ticketCount: 1
-    
+
                 })
-    
-                newGuild.save() 
-                .then(result => console.log(result))
-                .catch(err => console.log(err)) 
+
+                newTicket.save()
+                    .then(result => console.log(result))
+                    .catch(err => console.log(err))
                 console.log("new")
+
+                return message.channel.send(`This server was not in our database! Please retype this command.`)
+                    .then(msg => {msg.delete({ timeout: 10000 })})
 
             } else {
 
-                guild.updateOne({
+                ticket.updateOne({
 
-                    ticketCount: guild.ticketCount + 1
-                    
+                    ticketCount: ticket.ticketCount + 1
+
                 })
-                .then(result => console.log(result))
+                    .then(result => console.log(result))
                 console.log("update")
 
             }
 
         })
 
-        let count = await Guild.findOne({
+        let count = await Ticket.findOne({
 
             guildID: message.guild.id
-           
+
         })
 
         let embed = new MessageEmbed()
-        .setColor("RANDOM")
-        .setTimestamp()
-        .setFooter("Powered By Xeno", client.user.avatarURL())
-        .setDescription('Thanks you for creating a ticket!\nSupport will be with you shortly\n\`\`x!ticket-close\`\` if you wish to close this ticket')
+            .setColor("RANDOM")
+            .setTimestamp()
+            .setFooter("Powered By Xeno", client.user.avatarURL())
+            .setDescription(`Thanks you for creating a ticket!\nSupport will be with you shortly\n\`\`xt!ticket-close\`\` if you wish to close this ticket`)
 
-        message.guild.channels.create(
+        let mention = `<@${message.author.id}>`;
+
+        let createdChannel = await message.guild.channels.create(
             `ticket-${count.ticketCount}`, {
                 type: 'text',
                 permissionOverwrites: [
@@ -85,7 +110,11 @@ module.exports = {
 
             }
         )
-        .then(channel => channel.send(embed))
+
+
+        client.channels.cache.get(createdChannel.id).send(mention)
+            .then(msg => {msg.delete({ timeout: 1000 })})
+        client.channels.cache.get(createdChannel.id).send(embed)
 
     }
 } 
