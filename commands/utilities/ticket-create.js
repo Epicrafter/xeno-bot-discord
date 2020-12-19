@@ -88,7 +88,7 @@ module.exports = {
             .setColor("RANDOM")
             .setTimestamp()
             .setFooter("Powered By Xeno", client.user.avatarURL())
-            .setDescription(`Thanks you for creating a ticket!\nSupport will be with you shortly\n\`\`xt!ticket-close\`\` if you wish to close this ticket`)
+            .setDescription(`Thanks you for creating a ticket!\nSupport will be with you shortly\n\`\`x!ticket-close\`\` if you wish to close this ticket`)
 
         let mention = `<@${message.author.id}>`;
 
