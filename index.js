@@ -93,6 +93,7 @@ client.on("message", async message => {
 client.on('ready', () => {
 
     const activities = [
+        `Merry Christmas`,
         `${client.guilds.cache.size} servers!`,
         `${client.channels.cache.size} channels!`,
         `${client.users.cache.size} users!`
